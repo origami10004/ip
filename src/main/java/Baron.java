@@ -1,8 +1,25 @@
+import java.util.Scanner;
+
 public class Baron {
     public static final String NAME = "Baron";
     public static void main(String[] args) {
         greet();
 
+        Scanner sc = new Scanner(System.in);
+        boolean isExit = false;
+        while (!isExit) {
+            System.out.print("> ");
+            String input = sc.nextLine();
+            if (input.equals("bye")) {
+                isExit = true;
+            } else {
+                printLine();
+                System.out.println(input);
+                printLine();
+            }
+        }
+        bye();
+        sc.close();
     }
 
 
@@ -24,8 +41,11 @@ public class Baron {
         System.out.println(banner());
         System.out.println("Hello! I'm " + NAME + ".\nWhat can I do for you?");
         printLine();
+    }
+
+    private static void bye() {
+        printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
-        
     }
 }
