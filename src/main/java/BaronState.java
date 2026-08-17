@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class BaronState {
     private static boolean isExit = false;
-    private static ArrayList<String> text;
+    private static ArrayList<Task> text;
 
     public static void init() {
         isExit = false;
@@ -18,11 +18,11 @@ public class BaronState {
         return isExit;
     }
 
-    public static ArrayList<String> getText() {
+    public static ArrayList<Task> getText() {
         return text;
     }
 
     public static void addText(String input) {
-        text.add(input);
+        text.add(new Task(input));
     }
 }

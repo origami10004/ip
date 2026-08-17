@@ -17,15 +17,17 @@ public class Baron {
         while (!BaronState.getExitStatus()) {
             System.out.print("> ");
             String input = sc.nextLine();
+            String command = input.split(" ")[0];
+            String paramString = input.substring(command.length()).trim();
 
-            Commands c = Commands.parse(input);
+            Commands c = Commands.parse(command);
             if (c == null) {
                 printLine();
                 System.out.println("added: " + input);
                 printLine();
                 BaronState.addText(input);
             } else {
-                c.execute();
+                c.execute(paramString);
             }
         }
         bye();
