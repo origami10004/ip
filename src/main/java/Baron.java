@@ -1,21 +1,33 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Baron {
     public static final String NAME = "Baron";
+
+    private static boolean isExit;
+    private static ArrayList<String> text = new ArrayList<>();
     public static void main(String[] args) {
         greet();
 
         Scanner sc = new Scanner(System.in);
-        boolean isExit = false;
+        isExit = false;
+        text.clear();
         while (!isExit) {
             System.out.print("> ");
             String input = sc.nextLine();
             if (input.equals("bye")) {
                 isExit = true;
+            } else if (input.equals("list")) {
+                printLine();
+                for (int i = 0; i < text.size(); i++) {
+                    System.out.println((i + 1) + ". " + text.get(i));
+                }
+                printLine();
             } else {
                 printLine();
-                System.out.println(input);
+                System.out.println("added: " + input);
                 printLine();
+                text.add(input);
             }
         }
         bye();
