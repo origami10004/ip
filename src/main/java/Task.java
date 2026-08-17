@@ -18,6 +18,10 @@ public class Task {
         isDone = true;
     }
 
+    public void unmark() {
+        isDone = false;
+    }
+
     public String toString() {
         return (isDone ? "[X] " : "[ ] ") + name;
     }

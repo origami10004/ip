@@ -27,7 +27,9 @@ public class Baron {
                 printLine();
                 BaronState.addText(input);
             } else {
+                printLine();
                 c.execute(paramString);
+                printLine();
             }
         }
         bye();
@@ -51,8 +53,8 @@ public class Baron {
     }
 
     private static void bye() {
-        printLine();
         System.out.println("Bye. Hope to see you again soon!");
+        printLine();
         printLine();
     }
 }

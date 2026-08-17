@@ -9,14 +9,38 @@ public enum Commands {
     LIST("list") {
         @Override
         public void execute(String args) {
-            Baron.printLine();
             System.out.println("Here are the tasks in your list:");
             int i = 1;
-            for (Task t : BaronState.getText()) {
+            for (Task t : BaronState.getTasks()) {
                 System.out.println(i + "." + t);
                 i++;
             }
-            Baron.printLine();
+        }
+    },
+    MARK("mark") {
+        @Override
+        public void execute(String args) {
+            try {
+                int index = Integer.parseInt(args) - 1;
+                BaronState.markTaskAsDone(index);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + BaronState.getTasks().get(index));
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please provide a valid task number.");
+            }
+        }
+    },
+    UNMARK("unmark") {
+        @Override
+        public void execute(String args) {
+            try {
+                int index = Integer.parseInt(args) - 1;
+                BaronState.unmarkTask(index);
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + BaronState.getTasks().get(index));
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please provide a valid task number.");
+            }
         }
     };
 

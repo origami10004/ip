@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class BaronState {
     private static boolean isExit = false;
-    private static ArrayList<Task> text;
+    private static ArrayList<Task> tasks;
 
     public static void init() {
         isExit = false;
-        text = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
 
@@ -18,11 +18,27 @@ public class BaronState {
         return isExit;
     }
 
-    public static ArrayList<Task> getText() {
-        return text;
+    public static ArrayList<Task> getTasks() {
+        return tasks;
     }
 
     public static void addText(String input) {
-        text.add(new Task(input));
+        tasks.add(new Task(input));
+    }
+
+    public static void markTaskAsDone(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            tasks.get(index).markAsDone();
+        } else {
+            System.out.println("Invalid task index.");
+        }
+    }
+
+    public static void unmarkTask(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            tasks.get(index).unmark();
+        } else {
+            System.out.println("Invalid task index.");
+        }
     }
 }
