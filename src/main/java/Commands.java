@@ -42,6 +42,20 @@ public enum Commands {
                 System.out.println("Invalid input. Please provide a valid task number.");
             }
         }
+    },
+    TODO("todo") {
+        @Override
+        public void execute(String args) {
+            if (args.isEmpty()) {
+                System.out.println("The description of a todo cannot be empty.");
+                return;
+            }
+            Task t = new Todo(args);
+            BaronState.getTasks().add(t);
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + t);
+            System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
+        }
     };
 
     private final String command;

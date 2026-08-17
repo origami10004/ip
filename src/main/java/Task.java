@@ -22,7 +22,15 @@ public class Task {
         isDone = false;
     }
 
+    public String extraInfo() {
+        return "";
+    }
+
+    public String getTypeSymbol() {
+        return "[ ]";
+    }
+
     public String toString() {
-        return (isDone ? "[X] " : "[ ] ") + name;
+        return getTypeSymbol() + (isDone ? "[X] " : "[ ] ") + name + extraInfo();
     }
 }
