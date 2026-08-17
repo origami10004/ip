@@ -56,6 +56,21 @@ public enum Commands {
             System.out.println("  " + t);
             System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
         }
+    },
+    DEADLINE("deadline") {
+        @Override
+        public void execute(String args) {
+            String[] parts = args.split(" /by ");
+            if (parts.length < 2) {
+                System.out.println("Invalid format. Please use: deadline <description> /by <date>");
+                return;
+            }
+            Task t = new Deadline(parts[0], parts[1]);
+            BaronState.getTasks().add(t);
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + t);
+            System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
+        }
     };
 
     private final String command;
