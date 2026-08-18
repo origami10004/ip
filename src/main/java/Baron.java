@@ -1,9 +1,19 @@
+// javadocs created by AI
+
 import java.util.Scanner;
 
 import exceptions.BaronException;
 
+/**
+ * Entry point for the Baron task management application.
+ * The program starts a command loop that reads user input, dispatches commands,
+ * and manages the application state until the user exits.
+ */
 public class Baron {
+    /** Name displayed in the welcome banner and greeting messages. */
     public static final String NAME = "Baron";
+
+    /** ASCII banner shown when the application starts. */
     private static final String BANNER = "__________\n"
             + "\\______   \\_____ _______  ____   ____\n"
             + " |    |  _/\\__  \\\\_  __ \\/  _ \\ /    \\\n"
@@ -11,6 +21,11 @@ public class Baron {
             + " |______  /(____  /__|   \\____/|___|  /\n"
             + "        \\/      \\/                  \\/";
 
+    /**
+     * Starts the Baron application and processes user commands until termination.
+     *
+     * @param args command-line arguments; they are currently ignored by the program.
+     */
     public static void main(String[] args) {
         greet();
 
@@ -35,15 +50,23 @@ public class Baron {
         sc.close();
     }
 
-
+    /**
+     * Prints the ASCII banner used at startup.
+     */
     private static void printBanner() {
         System.out.println(BANNER);
     }
 
+    /**
+     * Prints a divider line used to separate UI sections.
+     */
     public static void printLine() {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays the welcome message and startup banner.
+     */
     private static void greet() {
         printLine();
         printBanner();
@@ -51,6 +74,9 @@ public class Baron {
         printLine();
     }
 
+    /**
+     * Displays the farewell message when the application exits.
+     */
     private static void bye() {
         System.out.println("Bye. Hope to see you again soon!");
         printLine();

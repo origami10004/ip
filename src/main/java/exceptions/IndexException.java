@@ -1,7 +1,17 @@
+// javadocs created by AI
+
 package exceptions;
 
-public class IndexException extends BaronException{
-	public IndexException(String collectionName) {
-		super("Invalid " + collectionName + " index.");
-	}
+/**
+ * Signals that a user referenced an invalid index for a task collection.
+ */
+public class IndexException extends BaronException {
+    /**
+     * Creates an index exception for a collection such as tasks.
+     *
+     * @param collectionName the name of the collection the user accessed.
+     */
+    public IndexException(String collectionName) {
+        super("Invalid " + collectionName + " index.");
+    }
 }
