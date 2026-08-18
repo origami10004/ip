@@ -1,5 +1,7 @@
 // javadocs created by AI
 
+package data;
+
 import java.util.ArrayList;
 
 import task.Task;
