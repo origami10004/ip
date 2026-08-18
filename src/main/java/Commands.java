@@ -6,14 +6,14 @@ import exceptions.BaronException;
 import exceptions.FormatException;
 
 public enum Commands {
-    BYE("bye") {
+    BYE {
         @Override
         public void execute(String args) {
             BaronState.exit();
         }
 
     },
-    LIST("list") {
+    LIST {
         @Override
         public void execute(String args) {
             System.out.println("Here are the tasks in your list:");
@@ -24,7 +24,7 @@ public enum Commands {
             }
         }
     },
-    MARK("mark") {
+    MARK {
         @Override
         public void execute(String args) throws BaronException {
             try {
@@ -37,7 +37,7 @@ public enum Commands {
             }
         }
     },
-    UNMARK("unmark") {
+    UNMARK {
         @Override
         public void execute(String args) throws BaronException {
             try {
@@ -50,7 +50,7 @@ public enum Commands {
             }
         }
     },
-    TODO("todo") {
+    TODO {
         @Override
         public void execute(String args) throws BaronException {
             if (args.isEmpty()) {
@@ -63,7 +63,7 @@ public enum Commands {
             System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
         }
     },
-    DEADLINE("deadline") {
+    DEADLINE {
         @Override
         public void execute(String args) throws BaronException {
             String[] parts = args.split(" /by ");
@@ -77,7 +77,7 @@ public enum Commands {
             System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
         }
     },
-    EVENT("event") {
+    EVENT {
         @Override
         public void execute(String args) throws BaronException {
             String[] parts = args.split(" /from | /to ");
@@ -91,7 +91,7 @@ public enum Commands {
             System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
         }
     },
-    DELETE("delete") {
+    DELETE {
         @Override
         public void execute(String args) throws BaronException {
             try {
@@ -106,10 +106,6 @@ public enum Commands {
         }
     };
 
-    private final String command;
-    Commands(String command) {
-        this.command = command;
-    }
 
     // AI suggested use of abstract method to execute commands
     public abstract void execute(String args) throws BaronException;
