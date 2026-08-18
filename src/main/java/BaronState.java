@@ -26,19 +26,19 @@ public class BaronState {
         tasks.add(new Task(input));
     }
 
-    public static void markTaskAsDone(int index) {
+    public static void markTaskAsDone(int index) throws BaronException {
         if (index >= 0 && index < tasks.size()) {
             tasks.get(index).markAsDone();
         } else {
-            System.out.println("Invalid task index.");
+            throw new BaronException("Invalid task index.");
         }
     }
 
-    public static void unmarkTask(int index) {
+    public static void unmarkTask(int index) throws BaronException {
         if (index >= 0 && index < tasks.size()) {
             tasks.get(index).unmark();
         } else {
-            System.out.println("Invalid task index.");
+            throw new BaronException("Invalid task index.");
         }
     }
 }

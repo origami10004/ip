@@ -20,17 +20,14 @@ public class Baron {
             String command = input.split(" ")[0];
             String paramString = input.substring(command.length()).trim();
 
-            Commands c = Commands.parse(command);
-            if (c == null) {
-                printLine();
-                System.out.println("added: " + input);
-                printLine();
-                BaronState.addText(input);
-            } else {
-                printLine();
+            printLine();
+            try {
+                Commands c = Commands.parse(command);
                 c.execute(paramString);
-                printLine();
+            } catch (BaronException e) {
+                System.out.println(e.getMessage());
             }
+            printLine();
         }
         bye();
         sc.close();
