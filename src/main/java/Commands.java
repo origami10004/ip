@@ -71,6 +71,21 @@ public enum Commands {
             System.out.println("  " + t);
             System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
         }
+    },
+    EVENT("event") {
+        @Override
+        public void execute(String args) {
+            String[] parts = args.split(" /from | /to ");
+            if (parts.length < 3) {
+                System.out.println("Invalid format. Please use: event <description> /from <start time> /to <end time>");
+                return;
+            }
+            Task t = new Event(parts[0], parts[1], parts[2]);
+            BaronState.getTasks().add(t);
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + t);
+            System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
+        }
     };
 
     private final String command;
