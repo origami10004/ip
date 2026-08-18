@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import task.Task;
+
 public class BaronState {
     private static boolean isExit = false;
     private static ArrayList<Task> tasks;
