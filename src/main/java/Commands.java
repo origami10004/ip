@@ -2,6 +2,9 @@
 
 import task.*;
 
+import exceptions.BaronException;
+import exceptions.FormatException;
+
 public enum Commands {
     BYE("bye") {
         @Override
@@ -30,7 +33,7 @@ public enum Commands {
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("  " + BaronState.getTasks().get(index));
             } catch (NumberFormatException e) {
-                throw new BaronException("Invalid input. Please provide a valid task number.");
+                throw new FormatException("mark", "mark <task number>");
             }
         }
     },
@@ -43,7 +46,7 @@ public enum Commands {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + BaronState.getTasks().get(index));
             } catch (NumberFormatException e) {
-                throw new BaronException("Invalid input. Please provide a valid task number.");
+                throw new FormatException("unmark", "unmark <task number>");
             }
         }
     },
@@ -51,7 +54,7 @@ public enum Commands {
         @Override
         public void execute(String args) throws BaronException {
             if (args.isEmpty()) {
-                throw new BaronException("The description of a todo cannot be empty.");
+                throw new FormatException("todo", "todo <description>");
             }
             Task t = new Todo(args);
             BaronState.getTasks().add(t);
@@ -65,7 +68,7 @@ public enum Commands {
         public void execute(String args) throws BaronException {
             String[] parts = args.split(" /by ");
             if (parts.length < 2) {
-                throw new BaronException("Invalid format. Please use: deadline <description> /by <date>");
+                throw new FormatException("deadline", "deadline <description> /by <date>");
             }
             Task t = new Deadline(parts[0], parts[1]);
             BaronState.getTasks().add(t);
@@ -79,7 +82,7 @@ public enum Commands {
         public void execute(String args) throws BaronException {
             String[] parts = args.split(" /from | /to ");
             if (parts.length < 3) {
-                throw new BaronException("Invalid format. Please use: event <description> /from <start time> /to <end time>");
+                throw new FormatException("event", "event <description> /from <start time> /to <end time>");
             }
             Task t = new Event(parts[0], parts[1], parts[2]);
             BaronState.getTasks().add(t);
@@ -98,7 +101,7 @@ public enum Commands {
                 System.out.println("  " + t);
                 System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
             } catch (NumberFormatException e) {
-                throw new BaronException("Invalid input. Please provide a valid task number.");
+                throw new FormatException("delete", "delete <task number>");
             }
         }
     };

@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import exceptions.BaronException;
+
 public class Baron {
     public static final String NAME = "Baron";
     private static final String BANNER = "__________\n"

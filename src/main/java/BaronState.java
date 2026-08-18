@@ -2,6 +2,9 @@ import java.util.ArrayList;
 
 import task.Task;
 
+import exceptions.BaronException;
+import exceptions.IndexException;
+
 public class BaronState {
     private static boolean isExit = false;
     private static ArrayList<Task> tasks;
@@ -32,7 +35,7 @@ public class BaronState {
         if (index >= 0 && index < tasks.size()) {
             tasks.get(index).markAsDone();
         } else {
-            throw new BaronException("Invalid task index.");
+            throw new IndexException("task");
         }
     }
 
@@ -40,7 +43,7 @@ public class BaronState {
         if (index >= 0 && index < tasks.size()) {
             tasks.get(index).unmark();
         } else {
-            throw new BaronException("Invalid task index.");
+            throw new IndexException("task");
         }
     }
 
@@ -48,7 +51,7 @@ public class BaronState {
         if (index >= 0 && index < tasks.size()) {
             return tasks.remove(index);
         } else {
-            throw new BaronException("Invalid task index.");
+            throw new IndexException("task");
         }
     }
 }
