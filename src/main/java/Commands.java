@@ -84,6 +84,20 @@ public enum Commands {
             System.out.println("  " + t);
             System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
         }
+    },
+    DELETE("delete") {
+        @Override
+        public void execute(String args) throws BaronException {
+            try {
+                int index = Integer.parseInt(args) - 1;
+                Task t = BaronState.delete(index);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println("  " + t);
+                System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
+            } catch (NumberFormatException e) {
+                throw new BaronException("Invalid input. Please provide a valid task number.");
+            }
+        }
     };
 
     private final String command;

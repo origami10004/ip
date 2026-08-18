@@ -41,4 +41,12 @@ public class BaronState {
             throw new BaronException("Invalid task index.");
         }
     }
+
+    public static Task delete(int index) throws BaronException {
+        if (index >= 0 && index < tasks.size()) {
+            return tasks.remove(index);
+        } else {
+            throw new BaronException("Invalid task index.");
+        }
+    }
 }
