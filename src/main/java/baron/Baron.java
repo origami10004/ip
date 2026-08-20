@@ -1,9 +1,12 @@
 // javadocs created by AI
 
+package baron;
+
 import java.util.Scanner;
 
-import data.BaronState;
-import exceptions.BaronException;
+import baron.command.Commands;
+import baron.data.BaronState;
+import baron.exception.BaronException;
 
 /**
  * Entry point for the Baron task management application.

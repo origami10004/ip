@@ -1,12 +1,12 @@
 // javadocs created by AI
 
-package task;
+package baron.task;
 
 import java.time.LocalDateTime;
 
-import data.DateHandler;
+import baron.data.DateHandler;
 
-import exceptions.BaronException;
+import baron.exception.BaronException;
 
 /**
  * Represents an event task with a start and end time.

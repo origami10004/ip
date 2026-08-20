@@ -1,6 +1,6 @@
 // javadocs created by AI
 
-package exceptions;
+package baron.exception;
 
 /**
  * Base exception for all user-facing errors handled by the Baron application.

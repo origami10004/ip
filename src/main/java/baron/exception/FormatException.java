@@ -1,6 +1,6 @@
 // javadocs created by AI
 
-package exceptions;
+package baron.exception;
 
 /**
  * Signals that a command was invoked with an invalid argument format.

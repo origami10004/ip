@@ -1,6 +1,6 @@
 // javadocs created by AI
 
-package data;
+package baron.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +9,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 
-import task.Task;
+import baron.task.Task;
 
-import exceptions.BaronException;
-import exceptions.FileException;
+import baron.exception.BaronException;
+import baron.exception.FileException;
 
 /**
  * Handles the persistence of tasks to and from a file.

@@ -1,6 +1,6 @@
 // javadocs created by AI
 
-package exceptions;
+package baron.exception;
 
 /**
  * Signals that a user referenced an invalid index for a task collection.
