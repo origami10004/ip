@@ -67,10 +67,10 @@ public class Task {
     /**
      * Returns the symbol representing the task type.
      *
-     * @return a type label such as "[T]" or "[D]".
+     * @return a type label such as "T" or "D".
      */
     public String getTypeSymbol() {
-        return "[ ]";
+        return " ";
     }
 
     /**
@@ -79,6 +79,15 @@ public class Task {
      * @return the formatted task status and description.
      */
     public String toString() {
-        return getTypeSymbol() + (isDone ? "[X] " : "[ ] ") + name + extraInfo();
+        return "[" + getTypeSymbol() + "]" + (isDone ? "[X] " : "[ ] ") + name + extraInfo();
+    }
+
+    /**
+     * returns the string representation of the task for saving to a file.
+     * 
+     * @return the formatted task status and description for file storage.
+     */
+    public String serialize() {
+        return getTypeSymbol() + "|" + (isDone ? "1" : "0") + "|" + name;
     }
 }
