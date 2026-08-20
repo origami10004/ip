@@ -1,13 +1,13 @@
 // javadocs created by AI
 
-package data;
+package baron.data;
 
 import java.util.ArrayList;
 
-import task.Task;
+import baron.task.Task;
 
-import exceptions.BaronException;
-import exceptions.IndexException;
+import baron.exception.BaronException;
+import baron.exception.IndexException;
 
 /**
  * Stores the application state for the Baron task manager.

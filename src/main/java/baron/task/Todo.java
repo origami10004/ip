@@ -1,6 +1,6 @@
 // javadocs created by AI
 
-package task;
+package baron.task;
 
 /**
  * Represents a to-do task that does not have a date or time.

@@ -1,8 +1,8 @@
 // javadocs created by AI
 
-package task;
+package baron.task;
 
-import exceptions.BaronException;
+import baron.exception.BaronException;
 
 /**
  * Represents a general task in the Baron application.

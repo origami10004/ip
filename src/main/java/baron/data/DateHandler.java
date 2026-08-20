@@ -1,13 +1,13 @@
 // javadocs created by AI
 
-package data;
+package baron.data;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
-import exceptions.BaronException;
+import baron.exception.BaronException;
 
 /**
  * A utility class for handling date and time parsing and formatting.
