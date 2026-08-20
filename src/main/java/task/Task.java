@@ -2,11 +2,13 @@
 
 package task;
 
+import exceptions.BaronException;
+
 /**
  * Represents a general task in the Baron application.
  * Subclasses can specify additional details such as deadlines or event ranges.
  */
-public class Task {
+public abstract class Task {
     /** The human-readable task description. */
     private String name;
 
@@ -89,5 +91,51 @@ public class Task {
      */
     public String serialize() {
         return getTypeSymbol() + "|" + (isDone ? "1" : "0") + "|" + name;
+    }
+
+    public static Task deserialize(String serializedTask) throws BaronException {
+        String[] parts = serializedTask.split("\\|");
+        if (parts.length < 3) {
+            throw new BaronException("Invalid task format.");
+        }
+
+        String type = parts[0];
+        boolean isDone = false;
+        if (parts[1].equals("1")) {
+            isDone = true;
+        } else if (!parts[1].equals("0")) {
+            throw new BaronException("Invalid task completion status.");
+        }
+        String name = parts[2];
+
+        Task task;
+        switch (type) {
+            case "T":
+                task = new Todo(name);
+                break;
+            case "D":
+                if (parts.length < 4) {
+                    throw new BaronException("Invalid deadline format.");
+                }
+                String dueDate = parts[3];
+                task = new Deadline(name, dueDate);
+                break;
+            case "E":
+                if (parts.length < 5) {
+                    throw new BaronException("Invalid event format.");
+                }
+                String from = parts[3];
+                String to = parts[4];
+                task = new Event(name, from, to);
+                break;
+            default:
+                throw new BaronException("Unknown task type: " + type);
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 }

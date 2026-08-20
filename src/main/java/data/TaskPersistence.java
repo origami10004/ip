@@ -2,6 +2,7 @@ package data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
@@ -31,9 +32,25 @@ public class TaskPersistence {
                     .toList();
             
             Files.write(SAVE_FILE, lines);
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new FileException(SAVE_FILE.toString());
         }
 
+    }
+
+    public static ArrayList<Task> load() throws BaronException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            if (Files.exists(SAVE_FILE)) {
+                List<String> lines = Files.readAllLines(SAVE_FILE);
+                for (String line : lines) {
+                    Task task = Task.deserialize(line);
+                    tasks.add(task);
+                }
+            }
+        } catch (IOException e) {
+            throw new FileException(SAVE_FILE.toString());
+        }
+        return tasks;
     }
 }

@@ -25,7 +25,11 @@ public class BaronState {
      */
     public static void init() {
         isExit = false;
-        tasks = new ArrayList<>();
+        try {
+            tasks = TaskPersistence.load();
+        } catch (BaronException e) {
+            tasks = new ArrayList<>();
+        }
     }
 
     /**
