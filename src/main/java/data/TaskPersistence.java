@@ -1,3 +1,5 @@
+// javadocs created by AI
+
 package data;
 
 import java.util.ArrayList;
@@ -12,10 +14,21 @@ import task.Task;
 import exceptions.BaronException;
 import exceptions.FileException;
 
+/**
+ * Handles the persistence of tasks to and from a file.
+ * This class provides methods to save the current list of tasks to a file
+ */
 public class TaskPersistence {
+    /** The file path where tasks are saved. */
     private static final Path SAVE_FILE = Paths.get("./data/tasks.txt");
     // TODO: Switch to JSON after setting up gradle dependencies
 
+    /**
+     * Saves the current list of tasks to the specified file.
+     * Each task is serialized and written to the file, one per line.
+     * @param tasks the list of tasks to save
+     * @throws BaronException if an error occurs while saving the tasks
+     */
     public static void save(ArrayList<Task> tasks) throws BaronException {
         try {
             Path parentDir = SAVE_FILE.getParent();
@@ -38,6 +51,13 @@ public class TaskPersistence {
 
     }
 
+    /**
+     * Loads the list of tasks from the specified file.
+     * Each line in the file is expected to be a serialized task.
+     *
+     * @return the list of loaded tasks
+     * @throws BaronException if an error occurs while loading the tasks
+     */
     public static ArrayList<Task> load() throws BaronException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {

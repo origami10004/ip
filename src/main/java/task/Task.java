@@ -93,6 +93,12 @@ public abstract class Task {
         return getTypeSymbol() + "|" + (isDone ? "1" : "0") + "|" + name;
     }
 
+    /**
+     * Creates a Task object from its serialized string representation.
+     * @param serializedTask the serialized task string
+     * @return the deserialized Task object
+     * @throws BaronException if the serialized task format is invalid
+     */
     public static Task deserialize(String serializedTask) throws BaronException {
         String[] parts = serializedTask.split("\\|");
         if (parts.length < 3) {
