@@ -25,13 +25,11 @@ public class Baron {
     /**
      * Starts the Baron application and processes user commands until termination.
      *
-     * @param args command-line arguments; they are currently ignored by the program.
      */
-    public static void main(String[] args) {
-        greet();
-
-        Scanner sc = new Scanner(System.in);
+    public Baron() {
         BaronState.init();
+        greet();
+        Scanner sc = new Scanner(System.in);
         while (!BaronState.getExitStatus()) {
             System.out.print("> ");
             String input = sc.nextLine();
@@ -50,6 +48,7 @@ public class Baron {
         bye();
         sc.close();
     }
+
 
     /**
      * Prints the ASCII banner used at startup.
@@ -82,5 +81,14 @@ public class Baron {
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
         printLine();
+    }
+
+    
+    /**
+     * The main method that serves as the entry point for the Baron application.
+     * @param args
+     */
+    public static void main(String[] args) {
+        new Baron();
     }
 }
