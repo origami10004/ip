@@ -2,12 +2,18 @@
 
 package task;
 
+import java.time.LocalDateTime;
+
+import data.DateHandler;
+
+import exceptions.BaronException;
+
 /**
  * Represents a task that must be completed by a specified date or time.
  */
 public class Deadline extends Task {
     /** The due date or time associated with the task. */
-    private String dueDate;
+    private LocalDateTime dueDate;
 
     /**
      * Creates a deadline task.
@@ -15,9 +21,9 @@ public class Deadline extends Task {
      * @param name the task description.
      * @param dueDate the deadline information.
      */
-    public Deadline(String name, String dueDate) {
+    public Deadline(String name, String dueDate) throws BaronException {
         super(name);
-        this.dueDate = dueDate;
+        this.dueDate = DateHandler.parse(dueDate);
     }
 
     /**
@@ -27,7 +33,7 @@ public class Deadline extends Task {
      */
     @Override
     public String extraInfo() {
-        return " (by: " + dueDate + ")";
+        return " (by: " + DateHandler.format(dueDate) + ")";
     }
 
     /**
@@ -47,6 +53,6 @@ public class Deadline extends Task {
      */
     @Override
     public String serialize() {
-        return super.serialize() + "|" + dueDate;
+        return super.serialize() + "|" + DateHandler.format(dueDate);
     }
 }

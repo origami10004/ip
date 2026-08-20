@@ -2,15 +2,21 @@
 
 package task;
 
+import java.time.LocalDateTime;
+
+import data.DateHandler;
+
+import exceptions.BaronException;
+
 /**
  * Represents an event task with a start and end time.
  */
 public class Event extends Task {
     /** The start time or date of the event. */
-    private String from;
+    private LocalDateTime from;
 
     /** The end time or date of the event. */
-    private String to;
+    private LocalDateTime to;
 
     /**
      * Creates an event task.
@@ -19,10 +25,10 @@ public class Event extends Task {
      * @param from the event start time.
      * @param to the event end time.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws BaronException {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = DateHandler.parse(from);
+        this.to = DateHandler.parse(to);
     }
 
     /**
@@ -32,7 +38,7 @@ public class Event extends Task {
      */
     @Override
     public String extraInfo() {
-        return " (from: " + from + " to: " + to + ")";
+        return " (from: " + DateHandler.format(from) + " to: " + DateHandler.format(to) + ")";
     }
 
     /**
@@ -52,6 +58,6 @@ public class Event extends Task {
      */
     @Override
     public String serialize() {
-        return super.serialize() + "|" + from + "|" + to;
+        return super.serialize() + "|" + DateHandler.format(from) + "|" + DateHandler.format(to);
     }
 }
