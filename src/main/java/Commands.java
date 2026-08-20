@@ -62,7 +62,7 @@ public enum Commands {
                 throw new FormatException("todo", "todo <description>");
             }
             Task t = new Todo(args);
-            BaronState.getTasks().add(t);
+            BaronState.addTask(t);
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + t);
             System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
@@ -76,7 +76,7 @@ public enum Commands {
                 throw new FormatException("deadline", "deadline <description> /by <date>");
             }
             Task t = new Deadline(parts[0], parts[1]);
-            BaronState.getTasks().add(t);
+            BaronState.addTask(t);
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + t);
             System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
@@ -90,7 +90,7 @@ public enum Commands {
                 throw new FormatException("event", "event <description> /from <start time> /to <end time>");
             }
             Task t = new Event(parts[0], parts[1], parts[2]);
-            BaronState.getTasks().add(t);
+            BaronState.addTask(t);
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + t);
             System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");

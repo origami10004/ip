@@ -38,10 +38,20 @@ public class Event extends Task {
     /**
      * Returns the type symbol for an event task.
      *
-     * @return "[E]".
+     * @return "E".
      */
     @Override
     public String getTypeSymbol() {
-        return "[E]";
+        return "E";
+    }
+
+    /**
+     * returns the string representation of the task for saving to a file.
+     * 
+     * @return the formatted task status and description for file storage.
+     */
+    @Override
+    public String serialize() {
+        return super.serialize() + "|" + from + "|" + to;
     }
 }

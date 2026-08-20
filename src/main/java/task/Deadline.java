@@ -37,6 +37,16 @@ public class Deadline extends Task {
      */
     @Override
     public String getTypeSymbol() {
-        return "[D]";
+        return "D";
+    }
+
+    /**
+     * returns the string representation of the task for saving to a file.
+     * 
+     * @return the formatted task status and description for file storage.
+     */
+    @Override
+    public String serialize() {
+        return super.serialize() + "|" + dueDate;
     }
 }

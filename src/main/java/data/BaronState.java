@@ -25,7 +25,11 @@ public class BaronState {
      */
     public static void init() {
         isExit = false;
-        tasks = new ArrayList<>();
+        try {
+            tasks = TaskPersistence.load();
+        } catch (BaronException e) {
+            tasks = new ArrayList<>();
+        }
     }
 
     /**
@@ -50,16 +54,17 @@ public class BaronState {
      * @return the list of tasks.
      */
     public static ArrayList<Task> getTasks() {
-        return tasks;
+        return new ArrayList<>(tasks);
     }
 
     /**
-     * Adds a plain text task to the current task list.
+     * Adds a task to the current task list.
      *
-     * @param input the task description.
+     * @param t the task to add.
      */
-    public static void addText(String input) {
-        tasks.add(new Task(input));
+    public static void addTask(Task t) throws BaronException {
+        tasks.add(t);
+        TaskPersistence.save(tasks);
     }
 
     /**
@@ -71,6 +76,7 @@ public class BaronState {
     public static void markTaskAsDone(int index) throws BaronException {
         if (index >= 0 && index < tasks.size()) {
             tasks.get(index).markAsDone();
+            TaskPersistence.save(tasks);
         } else {
             throw new IndexException("task");
         }
@@ -85,6 +91,7 @@ public class BaronState {
     public static void unmarkTask(int index) throws BaronException {
         if (index >= 0 && index < tasks.size()) {
             tasks.get(index).unmark();
+            TaskPersistence.save(tasks);
         } else {
             throw new IndexException("task");
         }
@@ -99,7 +106,9 @@ public class BaronState {
      */
     public static Task delete(int index) throws BaronException {
         if (index >= 0 && index < tasks.size()) {
-            return tasks.remove(index);
+            Task t = tasks.remove(index);
+            TaskPersistence.save(tasks);
+            return t;
         } else {
             throw new IndexException("task");
         }

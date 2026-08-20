@@ -18,10 +18,10 @@ public class Todo extends Task {
     /**
      * Returns the type symbol for a to-do task.
      *
-     * @return "[T]".
+     * @return "T".
      */
     @Override
     public String getTypeSymbol() {
-        return "[T]";
+        return "T";
     }
 }
