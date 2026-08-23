@@ -1,3 +1,5 @@
+// javadocs created by AI
+
 package baron.exception;
 
 /**
