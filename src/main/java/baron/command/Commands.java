@@ -111,6 +111,29 @@ public enum Commands {
                 throw new FormatException("delete", "delete <task number>");
             }
         }
+    },
+    FIND {
+        @Override
+        public void execute(String args) throws BaronException {
+            if (args.isEmpty()) {
+                throw new FormatException("find", "find <keyword>");
+            }
+            boolean found = false;
+            int i = 1;
+            for (Task t : BaronState.getTasks()) {
+                if (t.getName().contains(args)) {
+                    if (!found) {
+                        System.out.println("Here are the matching tasks in your list:");
+                        found = true;
+                    }
+                    System.out.println(i + "." + t);
+                    i++;
+                }
+            }
+            if (!found) {
+                System.out.println("There are no matching tasks in your list:");
+            }
+        }
     };
 
     // AI suggested use of abstract method to execute commands

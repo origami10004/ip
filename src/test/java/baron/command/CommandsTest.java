@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -149,5 +150,46 @@ class CommandsTest {
         assertThrows(IndexException.class, () -> Commands.DELETE.execute("0"));
         assertEquals(List.of("keep this task"),
                 BaronState.getTasks().stream().map(Task::getName).toList());
+    }
+
+    @Test
+    void find_matchingKeyword_printsMatchingTasks() throws BaronException {
+        BaronState.addTask(new Todo("read book"));
+        BaronState.addTask(new Todo("write report"));
+        BaronState.addTask(new Todo("read notes"));
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        var originalOutput = System.out;
+        System.setOut(new java.io.PrintStream(output));
+        try {
+            Commands.FIND.execute("read");
+        } finally {
+            System.setOut(originalOutput);
+        }
+
+        assertEquals("Here are the matching tasks in your list:\r\n"
+            + "1.[T][ ] read book\r\n"
+            + "2.[T][ ] read notes\r\n", output.toString());
+    }
+
+    @Test
+    void find_nonMatchingKeyword_printsNoTasks() throws BaronException {
+        BaronState.addTask(new Todo("read book"));
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        var originalOutput = System.out;
+        System.setOut(new java.io.PrintStream(output));
+        try {
+            Commands.FIND.execute("exercise");
+        } finally {
+            System.setOut(originalOutput);
+        }
+
+        assertEquals("There are no matching tasks in your list:\r\n", output.toString());
+    }
+
+    @Test
+    void find_emptyKeyword_throwsFormatException() {
+        assertThrows(FormatException.class, () -> Commands.FIND.execute(""));
     }
 }
