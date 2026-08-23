@@ -167,9 +167,9 @@ class CommandsTest {
             System.setOut(originalOutput);
         }
 
-        assertEquals("Here are the matching tasks in your list:\r\n"
-            + "1.[T][ ] read book\r\n"
-            + "2.[T][ ] read notes\r\n", output.toString());
+        assertEquals("Here are the matching tasks in your list:\n"
+            + "1.[T][ ] read book\n"
+            + "2.[T][ ] read notes\n", output.toString());
     }
 
     @Test
@@ -185,7 +185,7 @@ class CommandsTest {
             System.setOut(originalOutput);
         }
 
-        assertEquals("There are no matching tasks in your list:\r\n", output.toString());
+        assertEquals("There are no matching tasks in your list:\n", output.toString());
     }
 
     @Test
