@@ -158,34 +158,19 @@ class CommandsTest {
         BaronState.addTask(new Todo("write report"));
         BaronState.addTask(new Todo("read notes"));
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        var originalOutput = System.out;
-        System.setOut(new java.io.PrintStream(output));
-        try {
-            Commands.FIND.execute("read");
-        } finally {
-            System.setOut(originalOutput);
-        }
+        String output = Commands.FIND.execute("read");
 
         assertEquals("Here are the matching tasks in your list:\n"
             + "1.[T][ ] read book\n"
-            + "2.[T][ ] read notes\n", output.toString());
+            + "2.[T][ ] read notes", output);
     }
 
     @Test
     void find_nonMatchingKeyword_printsNoTasks() throws BaronException {
         BaronState.addTask(new Todo("read book"));
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        var originalOutput = System.out;
-        System.setOut(new java.io.PrintStream(output));
-        try {
-            Commands.FIND.execute("exercise");
-        } finally {
-            System.setOut(originalOutput);
-        }
-
-        assertEquals("There are no matching tasks in your list:\n", output.toString());
+        String output = Commands.FIND.execute("exercise");
+        assertEquals("There are no matching tasks in your list:", output);
     }
 
     @Test

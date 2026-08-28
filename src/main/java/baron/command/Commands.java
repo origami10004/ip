@@ -15,30 +15,35 @@ import baron.task.*;
 public enum Commands {
     BYE {
         @Override
-        public void execute(String args) {
+        public String execute(String args) {
             BaronState.exit();
+            return "";
         }
 
     },
     LIST {
         @Override
-        public void execute(String args) {
-            System.out.println("Here are the tasks in your list:");
+        public String execute(String args) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Here are the tasks in your list:\n");
             int i = 1;
             for (Task t : BaronState.getTasks()) {
-                System.out.println(i + "." + t);
+                sb.append(i).append(".").append(t).append("\n");
                 i++;
             }
+            return sb.toString();
         }
     },
     MARK {
         @Override
-        public void execute(String args) throws BaronException {
+        public String execute(String args) throws BaronException {
             try {
                 int index = Integer.parseInt(args) - 1;
                 BaronState.markTaskAsDone(index);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " + BaronState.getTasks().get(index));
+                StringBuilder sb = new StringBuilder();
+                sb.append("Nice! I've marked this task as done:");
+                sb.append("\n  ").append(BaronState.getTasks().get(index));
+                return sb.toString();
             } catch (NumberFormatException e) {
                 throw new FormatException("mark", "mark <task number>");
             }
@@ -46,12 +51,14 @@ public enum Commands {
     },
     UNMARK {
         @Override
-        public void execute(String args) throws BaronException {
+        public String execute(String args) throws BaronException {
             try {
                 int index = Integer.parseInt(args) - 1;
                 BaronState.unmarkTask(index);
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("  " + BaronState.getTasks().get(index));
+                StringBuilder sb = new StringBuilder();
+                sb.append("OK, I've marked this task as not done yet:");
+                sb.append("\n  ").append(BaronState.getTasks().get(index));
+                return sb.toString();
             } catch (NumberFormatException e) {
                 throw new FormatException("unmark", "unmark <task number>");
             }
@@ -59,54 +66,62 @@ public enum Commands {
     },
     TODO {
         @Override
-        public void execute(String args) throws BaronException {
+        public String execute(String args) throws BaronException {
             if (args.isEmpty()) {
                 throw new FormatException("todo", "todo <description>");
             }
             Task t = new Todo(args);
             BaronState.addTask(t);
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + t);
-            System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Got it. I've added this task:");
+            sb.append("\n  ").append(t);
+            sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
+            return sb.toString();
         }
     },
     DEADLINE {
         @Override
-        public void execute(String args) throws BaronException {
+        public String execute(String args) throws BaronException {
             String[] parts = args.split(" /by ");
             if (parts.length < 2) {
                 throw new FormatException("deadline", "deadline <description> /by <date>");
             }
             Task t = new Deadline(parts[0], parts[1]);
             BaronState.addTask(t);
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + t);
-            System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Got it. I've added this task:");
+            sb.append("\n  ").append(t);
+            sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
+            return sb.toString();
         }
     },
     EVENT {
         @Override
-        public void execute(String args) throws BaronException {
+        public String execute(String args) throws BaronException {
             String[] parts = args.split(" /from | /to ");
             if (parts.length < 3) {
                 throw new FormatException("event", "event <description> /from <start time> /to <end time>");
             }
             Task t = new Event(parts[0], parts[1], parts[2]);
             BaronState.addTask(t);
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + t);
-            System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Got it. I've added this task:");
+            sb.append("\n  ").append(t);
+            sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
+            return sb.toString();
         }
     },
     DELETE {
         @Override
-        public void execute(String args) throws BaronException {
+        public String execute(String args) throws BaronException {
             try {
                 int index = Integer.parseInt(args) - 1;
                 Task t = BaronState.delete(index);
-                System.out.println("Noted. I've removed this task:");
-                System.out.println("  " + t);
-                System.out.println("Now you have " + BaronState.getTasks().size() + " tasks in the list.");
+                StringBuilder sb = new StringBuilder();
+                sb.append("Noted. I've removed this task:");
+                sb.append("\n  ").append(t);
+                sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
+                return sb.toString();
             } catch (NumberFormatException e) {
                 throw new FormatException("delete", "delete <task number>");
             }
@@ -114,25 +129,27 @@ public enum Commands {
     },
     FIND {
         @Override
-        public void execute(String args) throws BaronException {
+        public String execute(String args) throws BaronException {
             if (args.isEmpty()) {
                 throw new FormatException("find", "find <keyword>");
             }
             boolean found = false;
             int i = 1;
+            StringBuilder sb = new StringBuilder();
             for (Task t : BaronState.getTasks()) {
                 if (t.getName().contains(args)) {
                     if (!found) {
-                        System.out.println("Here are the matching tasks in your list:");
+                        sb.append("Here are the matching tasks in your list:");
                         found = true;
                     }
-                    System.out.println(i + "." + t);
+                    sb.append("\n").append(i).append(".").append(t);
                     i++;
                 }
             }
             if (!found) {
-                System.out.println("There are no matching tasks in your list:");
+                sb.append("There are no matching tasks in your list:");
             }
+            return sb.toString();
         }
     };
 
@@ -143,7 +160,7 @@ public enum Commands {
      * @param args the raw arguments supplied with the command.
      * @throws BaronException if the command arguments are invalid.
      */
-    public abstract void execute(String args) throws BaronException;
+    public abstract String execute(String args) throws BaronException;
 
     /**
      * Parses a raw command string into the matching enum constant.
