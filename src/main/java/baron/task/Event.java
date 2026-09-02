@@ -5,7 +5,6 @@ package baron.task;
 import java.time.LocalDateTime;
 
 import baron.data.DateHandler;
-
 import baron.exception.BaronException;
 
 /**
@@ -53,7 +52,7 @@ public class Event extends Task {
 
     /**
      * returns the string representation of the task for saving to a file.
-     * 
+     *
      * @return the formatted task status and description for file storage.
      */
     @Override

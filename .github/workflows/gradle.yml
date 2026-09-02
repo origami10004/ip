@@ -29,6 +29,9 @@ jobs:
       - name: Run tests and build JAR
         run: ./gradlew test shadowJar
 
+      - name: Run checkstyle
+        run: ./gradlew checkstyleMain checkstyleTest
+
       - name: Upload runnable JAR
         uses: actions/upload-artifact@v4
         with:

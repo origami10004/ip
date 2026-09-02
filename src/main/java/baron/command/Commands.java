@@ -6,7 +6,10 @@ package baron.command;
 import baron.data.BaronState;
 import baron.exception.BaronException;
 import baron.exception.FormatException;
-import baron.task.*;
+import baron.task.Deadline;
+import baron.task.Event;
+import baron.task.Task;
+import baron.task.Todo;
 
 /**
  * Represents the valid user commands supported by the Baron application.

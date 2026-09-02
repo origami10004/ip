@@ -39,7 +39,8 @@ public class DateHandler {
         try {
             return LocalDateTime.parse(dateStr, INPUT);
         } catch (Exception e) {
-            throw new BaronException("Invalid date format. Please use one of the following formats: yyyy-MM-dd, dd-MM-yyyy, yyyy/MM/dd, dd/MM/yyyy, MMM dd yyyy, or MM dd yyyy.");
+            throw new BaronException("Invalid date format. Please use one of the following formats: "
+                     + "yyyy-MM-dd, dd-MM-yyyy, yyyy/MM/dd, dd/MM/yyyy, MMM dd yyyy, or MM dd yyyy.");
         }
     }
 
