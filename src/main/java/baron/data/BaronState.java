@@ -4,10 +4,9 @@ package baron.data;
 
 import java.util.ArrayList;
 
-import baron.task.Task;
-
 import baron.exception.BaronException;
 import baron.exception.IndexException;
+import baron.task.Task;
 
 /**
  * Stores the application state for the Baron task manager.

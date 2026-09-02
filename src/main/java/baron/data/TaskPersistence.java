@@ -2,17 +2,16 @@
 
 package baron.data;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.nio.file.Path;
-
-import baron.task.Task;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import baron.exception.BaronException;
 import baron.exception.FileException;
+import baron.task.Task;
 
 /**
  * Handles the persistence of tasks to and from a file.
@@ -43,7 +42,7 @@ public class TaskPersistence {
             List<String> lines = tasks.stream()
                     .map(Task::serialize)
                     .toList();
-            
+
             Files.write(SAVE_FILE, lines);
         } catch (IOException e) {
             throw new FileException(SAVE_FILE.toString());

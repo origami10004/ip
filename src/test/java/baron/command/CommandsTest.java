@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -77,6 +76,7 @@ class CommandsTest {
         assertEquals("submit report", task.getName());
     }
 
+    //CHECKSTYLE.OFF: SeparatorWrap
     @Test
     void deadline_missingByFormat_throwsFormatException() {
         assertThrows(
@@ -110,6 +110,7 @@ class CommandsTest {
                 () -> Commands.EVENT.execute("team meeting /from 2025-08-21 10:00"));
         assertTrue(BaronState.getTasks().isEmpty());
     }
+    //CHECKSTYLE.ON: SeparatorWrap
 
     @Test
     void markThenUnmark_validTask_updatesCompletionStatus() throws BaronException {

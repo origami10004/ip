@@ -4,7 +4,7 @@ package baron.ui;
  * Handles user interface interactions for the Baron application.
  */
 public class Ui {
-	/** Name displayed in the welcome banner and greeting messages. */
+    /** Name displayed in the welcome banner and greeting messages. */
     public static final String NAME = "Baron";
 
     /** ASCII banner shown when the application starts. */
