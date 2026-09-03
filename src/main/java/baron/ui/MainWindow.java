@@ -5,13 +5,26 @@ import baron.exception.BaronException;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /** Controller for the main Baron chat window. */
 public class MainWindow {
+    @FXML private AnchorPane root;
+    @FXML private ImageView backgroundImage;
     @FXML private VBox dialogContainer;
     @FXML private TextField userInput;
     @FXML private ScrollPane scrollPane;
+
+    /** Loads the supplied Minecraft image as a cover background for the window. */
+    public void applyBackground() {
+        Image image = new Image(getClass().getResource("/images/background.png").toExternalForm());
+        backgroundImage.setImage(image);
+        backgroundImage.fitWidthProperty().bind(root.widthProperty());
+        backgroundImage.fitHeightProperty().bind(root.heightProperty());
+    }
 
     /** Displays the initial greeting in the conversation. */
     public void showWelcome() {
@@ -22,7 +35,9 @@ public class MainWindow {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText().trim();
-        if (input.isEmpty()) return;
+        if (input.isEmpty()) {
+            return;
+        }
         dialogContainer.getChildren().add(DialogBox.getDialog(input, true));
         String response;
         try {
@@ -32,7 +47,9 @@ public class MainWindow {
         } catch (BaronException e) {
             response = e.getMessage();
         }
-        if (!response.isEmpty()) dialogContainer.getChildren().add(DialogBox.getDialog(response, false));
+        if (!response.isEmpty()) {
+            dialogContainer.getChildren().add(DialogBox.getDialog(response, false));
+        }
         userInput.clear();
         scrollPane.layout();
         scrollPane.setVvalue(1.0);

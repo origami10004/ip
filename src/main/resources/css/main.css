@@ -1,9 +1,6 @@
 .root {
     main-color: rgb(237, 255, 242);
-    -fx-background-color: main-color;
-    -fx-background-image: url("../images/background.png");
-    -fx-background-size: cover;
-    -fx-background-position: center center;
+    -fx-background-color: transparent;
 }
 
 .text-field {
@@ -31,9 +28,8 @@
     -fx-background-color: transparent;
 }
 
-.scroll-pane {
-    -fx-background-image: url("../images/background.png");
-    -fx-background-size: cover;
+.scroll-pane .content {
+    -fx-background-color: transparent;
 }
 
 .scroll-bar {

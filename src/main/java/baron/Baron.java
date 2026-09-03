@@ -28,10 +28,12 @@ public class Baron extends Application {
         MainWindow controller = loader.getController();
         controller.showWelcome();
         stage.setTitle("Baron Task Manager");
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         stage.setMinWidth(400);
         stage.setMinHeight(600);
         stage.show();
+        controller.applyBackground();
     }
 
     /**
