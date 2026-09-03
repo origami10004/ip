@@ -15,6 +15,9 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.openjfx:javafx-controls:21.0.4'
+    implementation 'org.openjfx:javafx-fxml:21.0.4'
+
     String jUnitVersion = '5.14.4'
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
