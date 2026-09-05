@@ -20,9 +20,14 @@ public class DialogBox extends HBox {
             loader.setRoot(this);
             loader.setController(this);
             loader.load();
+            // The FXML contract requires these controls to be injected before use.
+            assert dialog != null : "DialogBox FXML must inject the dialog label";
+            assert displayPicture != null : "DialogBox FXML must inject the avatar view";
             dialog.setText(text);
             String imagePath = isUser ? "/images/user.png" : "/images/baron.png";
-            Image image = new Image(getClass().getResource(imagePath).toExternalForm());
+            java.net.URL imageResource = getClass().getResource(imagePath);
+            assert imageResource != null : "DialogBox avatar resource must exist";
+            Image image = new Image(imageResource.toExternalForm());
             displayPicture.setImage(image);
             displayPicture.setSmooth(false);
             displayPicture.setVisible(true);
