@@ -40,31 +40,23 @@ public enum Commands {
     MARK {
         @Override
         public String execute(String args) throws BaronException {
-            try {
-                int index = Integer.parseInt(args) - 1;
-                BaronState.markTaskAsDone(index);
-                StringBuilder sb = new StringBuilder();
-                sb.append("Nice! I've marked this task as done:");
-                sb.append("\n  ").append(BaronState.getTasks().get(index));
-                return sb.toString();
-            } catch (NumberFormatException e) {
-                throw new FormatException("mark", "mark <task number>");
-            }
+            int index = parseTaskIndex(args, "mark");
+            BaronState.markTaskAsDone(index);
+            StringBuilder sb = new StringBuilder();
+            sb.append("Nice! I've marked this task as done:");
+            sb.append("\n  ").append(BaronState.getTasks().get(index));
+            return sb.toString();
         }
     },
     UNMARK {
         @Override
         public String execute(String args) throws BaronException {
-            try {
-                int index = Integer.parseInt(args) - 1;
-                BaronState.unmarkTask(index);
-                StringBuilder sb = new StringBuilder();
-                sb.append("OK, I've marked this task as not done yet:");
-                sb.append("\n  ").append(BaronState.getTasks().get(index));
-                return sb.toString();
-            } catch (NumberFormatException e) {
-                throw new FormatException("unmark", "unmark <task number>");
-            }
+            int index = parseTaskIndex(args, "unmark");
+            BaronState.unmarkTask(index);
+            StringBuilder sb = new StringBuilder();
+            sb.append("OK, I've marked this task as not done yet:");
+            sb.append("\n  ").append(BaronState.getTasks().get(index));
+            return sb.toString();
         }
     },
     TODO {
@@ -105,17 +97,13 @@ public enum Commands {
     DELETE {
         @Override
         public String execute(String args) throws BaronException {
-            try {
-                int index = Integer.parseInt(args) - 1;
-                Task t = BaronState.delete(index);
-                StringBuilder sb = new StringBuilder();
-                sb.append("Noted. I've removed this task:");
-                sb.append("\n  ").append(t);
-                sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
-                return sb.toString();
-            } catch (NumberFormatException e) {
-                throw new FormatException("delete", "delete <task number>");
-            }
+            int index = parseTaskIndex(args, "delete");
+            Task t = BaronState.delete(index);
+            StringBuilder sb = new StringBuilder();
+            sb.append("Noted. I've removed this task:");
+            sb.append("\n  ").append(t);
+            sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
+            return sb.toString();
         }
     },
     FIND {
@@ -160,6 +148,15 @@ public enum Commands {
         sb.append("\n  ").append(task);
         sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
         return sb.toString();
+    }
+
+    /** Converts a one-based task number into the zero-based index used by the state. */
+    private static int parseTaskIndex(String args, String commandName) throws BaronException {
+        try {
+            return Integer.parseInt(args) - 1;
+        } catch (NumberFormatException e) {
+            throw new FormatException(commandName, commandName + " <task number>");
+        }
     }
 
     /**
