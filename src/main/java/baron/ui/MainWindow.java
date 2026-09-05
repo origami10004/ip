@@ -1,7 +1,9 @@
 package baron.ui;
 
+import baron.data.BaronState;
 import baron.command.Commands;
 import baron.exception.BaronException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -46,6 +48,10 @@ public class MainWindow {
         }
         displayUserMessage(input);
         displayResponse(executeCommand(input));
+        if (BaronState.getExitStatus()) {
+            Platform.exit();
+            return;
+        }
         clearInputAndScroll();
     }
 
