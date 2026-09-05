@@ -44,19 +44,38 @@ public class MainWindow {
         if (input.isEmpty()) {
             return;
         }
+        displayUserMessage(input);
+        displayResponse(executeCommand(input));
+        clearInputAndScroll();
+    }
+
+    /** Adds the user's input to the conversation. */
+    private void displayUserMessage(String input) {
         dialogContainer.getChildren().add(DialogBox.getDialog(input, true));
-        String response;
+    }
+
+    /** Executes a command and returns either its result or an error message. */
+    private String executeCommand(String input) {
+        String command = input.split(" ", 2)[0];
+        String arguments = input.length() == command.length() ? "" : input.substring(command.length()).trim();
         try {
-            String command = input.split(" ", 2)[0];
-            String arguments = input.length() == command.length() ? "" : input.substring(command.length()).trim();
-            response = Commands.parse(command).execute(arguments);
+            String response = Commands.parse(command).execute(arguments);
+            assert response != null : "Command execution must always produce a response";
+            return response;
         } catch (BaronException e) {
-            response = e.getMessage();
+            return e.getMessage();
         }
-        assert response != null : "Command execution must always produce a response";
+    }
+
+    /** Adds a non-empty command response to the conversation. */
+    private void displayResponse(String response) {
         if (!response.isEmpty()) {
             dialogContainer.getChildren().add(DialogBox.getDialog(response, false));
         }
+    }
+
+    /** Clears the input field and scrolls to the newest message. */
+    private void clearInputAndScroll() {
         userInput.clear();
         scrollPane.layout();
         scrollPane.setVvalue(1.0);

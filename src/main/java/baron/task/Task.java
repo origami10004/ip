@@ -10,7 +10,7 @@ import baron.exception.BaronException;
  */
 public abstract class Task {
     /** The human-readable task description. */
-    private String name;
+    private String description;
 
     /** Indicates whether the task has been completed. */
     private boolean isDone;
@@ -18,10 +18,10 @@ public abstract class Task {
     /**
      * Creates a new task with the specified description.
      *
-     * @param name the description of the task.
+     * @param description the description of the task.
      */
-    public Task(String name) {
-        this.name = name;
+    public Task(String description) {
+        this.description = description;
         this.isDone = false;
     }
 
@@ -31,7 +31,7 @@ public abstract class Task {
      * @return the task description.
      */
     public String getName() {
-        return name;
+        return description;
     }
 
     /**
@@ -81,16 +81,16 @@ public abstract class Task {
      * @return the formatted task status and description.
      */
     public String toString() {
-        return "[" + getTypeSymbol() + "]" + (isDone ? "[X] " : "[ ] ") + name + extraInfo();
+        return "[" + getTypeSymbol() + "]" + (isDone ? "[X] " : "[ ] ") + description + extraInfo();
     }
 
     /**
-     * returns the string representation of the task for saving to a file.
+     * Returns the string representation of the task for saving to a file.
      *
      * @return the formatted task status and description for file storage.
      */
     public String serialize() {
-        return getTypeSymbol() + "|" + (isDone ? "1" : "0") + "|" + name;
+        return getTypeSymbol() + "|" + (isDone ? "1" : "0") + "|" + description;
     }
 
     /**
@@ -112,31 +112,7 @@ public abstract class Task {
         } else if (!parts[1].equals("0")) {
             throw new BaronException("Invalid task completion status.");
         }
-        String name = parts[2];
-
-        Task task;
-        switch (type) {
-            case "T":
-                task = new Todo(name);
-                break;
-            case "D":
-                if (parts.length < 4) {
-                    throw new BaronException("Invalid deadline format.");
-                }
-                String dueDate = parts[3];
-                task = new Deadline(name, dueDate);
-                break;
-            case "E":
-                if (parts.length < 5) {
-                    throw new BaronException("Invalid event format.");
-                }
-                String from = parts[3];
-                String to = parts[4];
-                task = new Event(name, from, to);
-                break;
-            default:
-                throw new BaronException("Unknown task type: " + type);
-        }
+        Task task = createTask(type, parts);
 
         if (isDone) {
             task.markAsDone();
@@ -145,5 +121,29 @@ public abstract class Task {
         // Every supported type above must create a task before deserialization returns.
         assert task != null : "A valid serialized task must produce a Task";
         return task;
+    }
+
+    /**
+     * Creates the concrete task represented by the already validated fields.
+     *
+     * @throws BaronException if the serialized task has an invalid subtype format.
+     */
+    private static Task createTask(String type, String[] parts) throws BaronException {
+        switch (type) {
+            case "T":
+                return new Todo(parts[2]);
+            case "D":
+                if (parts.length < 4) {
+                    throw new BaronException("Invalid deadline format.");
+                }
+                return new Deadline(parts[2], parts[3]);
+            case "E":
+                if (parts.length < 5) {
+                    throw new BaronException("Invalid event format.");
+                }
+                return new Event(parts[2], parts[3], parts[4]);
+            default:
+                throw new BaronException("Unknown task type: " + type);
+        }
     }
 }

@@ -61,6 +61,7 @@ public class BaronState {
      * Adds a task to the current task list.
      *
      * @param t the task to add.
+     * @throws BaronException if the updated task list cannot be saved.
      */
     public static void addTask(Task t) throws BaronException {
         assert tasks != null : "BaronState must be initialized before adding tasks";
@@ -77,12 +78,9 @@ public class BaronState {
      */
     public static void markTaskAsDone(int index) throws BaronException {
         assert tasks != null : "BaronState must be initialized before updating tasks";
-        if (index >= 0 && index < tasks.size()) {
-            tasks.get(index).markAsDone();
-            TaskPersistence.save(tasks);
-        } else {
-            throw new IndexException("task");
-        }
+        validateTaskIndex(index);
+        tasks.get(index).markAsDone();
+        TaskPersistence.save(tasks);
     }
 
     /**
@@ -93,12 +91,9 @@ public class BaronState {
      */
     public static void unmarkTask(int index) throws BaronException {
         assert tasks != null : "BaronState must be initialized before updating tasks";
-        if (index >= 0 && index < tasks.size()) {
-            tasks.get(index).unmark();
-            TaskPersistence.save(tasks);
-        } else {
-            throw new IndexException("task");
-        }
+        validateTaskIndex(index);
+        tasks.get(index).unmark();
+        TaskPersistence.save(tasks);
     }
 
     /**
@@ -110,11 +105,15 @@ public class BaronState {
      */
     public static Task delete(int index) throws BaronException {
         assert tasks != null : "BaronState must be initialized before deleting tasks";
-        if (index >= 0 && index < tasks.size()) {
-            Task t = tasks.remove(index);
-            TaskPersistence.save(tasks);
-            return t;
-        } else {
+        validateTaskIndex(index);
+        Task t = tasks.remove(index);
+        TaskPersistence.save(tasks);
+        return t;
+    }
+
+    /** Ensures a task index refers to an existing task. */
+    private static void validateTaskIndex(int index) throws IndexException {
+        if (index < 0 || index >= tasks.size()) {
             throw new IndexException("task");
         }
     }
