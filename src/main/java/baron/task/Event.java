@@ -60,4 +60,15 @@ public class Event extends Task {
     public String serialize() {
         return super.serialize() + "|" + DateHandler.format(from) + "|" + DateHandler.format(to);
     }
+
+    /**
+     * Returns the deadline or end time of the task, if applicable.
+     * For tasks without a specific time constraint, this method returns null.
+     *
+     * @return the deadline or end time, or null if not applicable.
+     */
+    @Override
+    public LocalDateTime getDeadline() {
+        return from;
+    }
 }
