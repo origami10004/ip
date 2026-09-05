@@ -42,10 +42,7 @@ public enum Commands {
         public String execute(String args) throws BaronException {
             int index = parseTaskIndex(args, "mark");
             BaronState.markTaskAsDone(index);
-            StringBuilder sb = new StringBuilder();
-            sb.append("Nice! I've marked this task as done:");
-            sb.append("\n  ").append(BaronState.getTasks().get(index));
-            return sb.toString();
+            return formatTaskAction("Nice! I've marked this task as done:", BaronState.getTasks().get(index));
         }
     },
     UNMARK {
@@ -53,10 +50,7 @@ public enum Commands {
         public String execute(String args) throws BaronException {
             int index = parseTaskIndex(args, "unmark");
             BaronState.unmarkTask(index);
-            StringBuilder sb = new StringBuilder();
-            sb.append("OK, I've marked this task as not done yet:");
-            sb.append("\n  ").append(BaronState.getTasks().get(index));
-            return sb.toString();
+            return formatTaskAction("OK, I've marked this task as not done yet:", BaronState.getTasks().get(index));
         }
     },
     TODO {
@@ -99,11 +93,9 @@ public enum Commands {
         public String execute(String args) throws BaronException {
             int index = parseTaskIndex(args, "delete");
             Task t = BaronState.delete(index);
-            StringBuilder sb = new StringBuilder();
-            sb.append("Noted. I've removed this task:");
-            sb.append("\n  ").append(t);
-            sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
-            return sb.toString();
+            String response = formatTaskAction("Noted. I've removed this task:", t);
+            response += "\nNow you have " + BaronState.getTasks().size() + " tasks in the list.";
+            return response;
         }
     },
     FIND {
@@ -148,6 +140,11 @@ public enum Commands {
         sb.append("\n  ").append(task);
         sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
         return sb.toString();
+    }
+
+    /** Formats the common response shown after acting on an existing task. */
+    private static String formatTaskAction(String message, Task task) {
+        return message + "\n  " + task;
     }
 
     /** Converts a one-based task number into the zero-based index used by the state. */
