@@ -75,11 +75,7 @@ public enum Commands {
             }
             Task t = new Todo(args);
             BaronState.addTask(t);
-            StringBuilder sb = new StringBuilder();
-            sb.append("Got it. I've added this task:");
-            sb.append("\n  ").append(t);
-            sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
-            return sb.toString();
+            return formatAddedTask(t);
         }
     },
     DEADLINE {
@@ -91,11 +87,7 @@ public enum Commands {
             }
             Task t = new Deadline(parts[0], parts[1]);
             BaronState.addTask(t);
-            StringBuilder sb = new StringBuilder();
-            sb.append("Got it. I've added this task:");
-            sb.append("\n  ").append(t);
-            sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
-            return sb.toString();
+            return formatAddedTask(t);
         }
     },
     EVENT {
@@ -107,11 +99,7 @@ public enum Commands {
             }
             Task t = new Event(parts[0], parts[1], parts[2]);
             BaronState.addTask(t);
-            StringBuilder sb = new StringBuilder();
-            sb.append("Got it. I've added this task:");
-            sb.append("\n  ").append(t);
-            sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
-            return sb.toString();
+            return formatAddedTask(t);
         }
     },
     DELETE {
@@ -164,6 +152,15 @@ public enum Commands {
      * @throws BaronException if the command arguments are invalid.
      */
     public abstract String execute(String args) throws BaronException;
+
+    /** Formats the common confirmation shown after adding a task. */
+    private static String formatAddedTask(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Got it. I've added this task:");
+        sb.append("\n  ").append(task);
+        sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
+        return sb.toString();
+    }
 
     /**
      * Parses a raw command string into the matching enum constant.
