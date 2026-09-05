@@ -142,6 +142,8 @@ public abstract class Task {
             task.markAsDone();
         }
 
+        // Every supported type above must create a task before deserialization returns.
+        assert task != null : "A valid serialized task must produce a Task";
         return task;
     }
 }

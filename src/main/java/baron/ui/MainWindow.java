@@ -20,7 +20,10 @@ public class MainWindow {
 
     /** Loads the supplied Minecraft image as a cover background for the window. */
     public void applyBackground() {
-        Image image = new Image(getClass().getResource("/images/background.png").toExternalForm());
+        assert root != null && backgroundImage != null : "MainWindow FXML must inject the background controls";
+        java.net.URL backgroundResource = getClass().getResource("/images/background.png");
+        assert backgroundResource != null : "MainWindow background resource must exist";
+        Image image = new Image(backgroundResource.toExternalForm());
         backgroundImage.setImage(image);
         backgroundImage.fitWidthProperty().bind(root.widthProperty());
         backgroundImage.fitHeightProperty().bind(root.heightProperty());
@@ -28,12 +31,15 @@ public class MainWindow {
 
     /** Displays the initial greeting in the conversation. */
     public void showWelcome() {
+        assert dialogContainer != null : "MainWindow FXML must inject the dialog container";
         dialogContainer.getChildren().add(DialogBox.getDialog("Hello! I'm Baron.\nWhat can I do for you?", false));
     }
 
     /** Executes the command entered by the user and appends both messages. */
     @FXML
     private void handleUserInput() {
+        assert userInput != null && dialogContainer != null && scrollPane != null
+                : "MainWindow FXML must inject all input controls";
         String input = userInput.getText().trim();
         if (input.isEmpty()) {
             return;
@@ -47,6 +53,7 @@ public class MainWindow {
         } catch (BaronException e) {
             response = e.getMessage();
         }
+        assert response != null : "Command execution must always produce a response";
         if (!response.isEmpty()) {
             dialogContainer.getChildren().add(DialogBox.getDialog(response, false));
         }

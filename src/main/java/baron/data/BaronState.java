@@ -53,6 +53,7 @@ public class BaronState {
      * @return the list of tasks.
      */
     public static ArrayList<Task> getTasks() {
+        assert tasks != null : "BaronState must be initialized before reading tasks";
         return new ArrayList<>(tasks);
     }
 
@@ -62,6 +63,8 @@ public class BaronState {
      * @param t the task to add.
      */
     public static void addTask(Task t) throws BaronException {
+        assert tasks != null : "BaronState must be initialized before adding tasks";
+        assert t != null : "The task list must not contain null tasks";
         tasks.add(t);
         TaskPersistence.save(tasks);
     }
@@ -73,6 +76,7 @@ public class BaronState {
      * @throws BaronException if the index is outside the valid range.
      */
     public static void markTaskAsDone(int index) throws BaronException {
+        assert tasks != null : "BaronState must be initialized before updating tasks";
         if (index >= 0 && index < tasks.size()) {
             tasks.get(index).markAsDone();
             TaskPersistence.save(tasks);
@@ -88,6 +92,7 @@ public class BaronState {
      * @throws BaronException if the index is outside the valid range.
      */
     public static void unmarkTask(int index) throws BaronException {
+        assert tasks != null : "BaronState must be initialized before updating tasks";
         if (index >= 0 && index < tasks.size()) {
             tasks.get(index).unmark();
             TaskPersistence.save(tasks);
@@ -104,6 +109,7 @@ public class BaronState {
      * @throws BaronException if the index is outside the valid range.
      */
     public static Task delete(int index) throws BaronException {
+        assert tasks != null : "BaronState must be initialized before deleting tasks";
         if (index >= 0 && index < tasks.size()) {
             Task t = tasks.remove(index);
             TaskPersistence.save(tasks);

@@ -26,6 +26,8 @@ public class Baron extends Application {
         FXMLLoader loader = new FXMLLoader(Baron.class.getResource("/view/MainWindow.fxml"));
         Parent root = loader.load();
         MainWindow controller = loader.getController();
+        assert root != null : "MainWindow FXML must load a root node";
+        assert controller != null : "MainWindow FXML must provide its controller";
         controller.showWelcome();
         stage.setTitle("Baron Task Manager");
         Scene scene = new Scene(root);
