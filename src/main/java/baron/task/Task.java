@@ -10,7 +10,7 @@ import baron.exception.BaronException;
  */
 public abstract class Task {
     /** The human-readable task description. */
-    private String name;
+    private String description;
 
     /** Indicates whether the task has been completed. */
     private boolean isDone;
@@ -18,10 +18,10 @@ public abstract class Task {
     /**
      * Creates a new task with the specified description.
      *
-     * @param name the description of the task.
+     * @param description the description of the task.
      */
-    public Task(String name) {
-        this.name = name;
+    public Task(String description) {
+        this.description = description;
         this.isDone = false;
     }
 
@@ -31,7 +31,7 @@ public abstract class Task {
      * @return the task description.
      */
     public String getName() {
-        return name;
+        return description;
     }
 
     /**
@@ -81,7 +81,7 @@ public abstract class Task {
      * @return the formatted task status and description.
      */
     public String toString() {
-        return "[" + getTypeSymbol() + "]" + (isDone ? "[X] " : "[ ] ") + name + extraInfo();
+        return "[" + getTypeSymbol() + "]" + (isDone ? "[X] " : "[ ] ") + description + extraInfo();
     }
 
     /**
@@ -90,7 +90,7 @@ public abstract class Task {
      * @return the formatted task status and description for file storage.
      */
     public String serialize() {
-        return getTypeSymbol() + "|" + (isDone ? "1" : "0") + "|" + name;
+        return getTypeSymbol() + "|" + (isDone ? "1" : "0") + "|" + description;
     }
 
     /**

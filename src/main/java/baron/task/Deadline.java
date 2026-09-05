@@ -17,12 +17,12 @@ public class Deadline extends Task {
     /**
      * Creates a deadline task.
      *
-     * @param name the task description.
+     * @param description the task description.
      * @param dueDate the deadline information.
      * @throws BaronException if the deadline has an invalid date format.
      */
-    public Deadline(String name, String dueDate) throws BaronException {
-        super(name);
+    public Deadline(String description, String dueDate) throws BaronException {
+        super(description);
         this.dueDate = DateHandler.parse(dueDate);
     }
 
