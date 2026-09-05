@@ -3,6 +3,9 @@
 
 package baron.command;
 
+import java.util.Comparator;
+import java.util.List;
+
 import baron.data.BaronState;
 import baron.exception.BaronException;
 import baron.exception.FormatException;
@@ -119,6 +122,30 @@ public enum Commands {
             }
             if (!found) {
                 sb.append("There are no matching tasks in your list:");
+            }
+            return sb.toString();
+        }
+    },
+    REMINDER {
+        @Override
+        public String execute(String args) {
+            StringBuilder sb = new StringBuilder();
+
+            List<Task> tasks = BaronState.getTasks().stream()
+                    .filter(task -> task.getDeadline() != null)
+                    .sorted(Comparator.comparing(Task::getDeadline))
+                    .toList();
+
+            int i = 1;
+            for (Task t : tasks) {
+                if (i == 1) {
+                    sb.append("Here are the tasks due soon:\n");
+                }
+                sb.append(i).append(".").append(t).append("\n");
+                i++;
+            }
+            if (i == 1) {
+                sb.append("There are no tasks due soon.");
             }
             return sb.toString();
         }

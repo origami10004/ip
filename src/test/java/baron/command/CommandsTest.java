@@ -178,4 +178,38 @@ class CommandsTest {
     void find_emptyKeyword_throwsFormatException() {
         assertThrows(FormatException.class, () -> Commands.FIND.execute(""));
     }
+
+    @Test
+    void reminder_tasksWithDeadlines_returnsTasksFromEarliestToLatest() throws BaronException {
+        Commands.DEADLINE.execute("later task /by 2025-08-22 14:00");
+        Commands.EVENT.execute("earlier event /from 2025-08-20 09:00 /to 2025-08-20 10:00");
+        Commands.DEADLINE.execute("earliest task /by 2025-08-19 18:30");
+
+        String output = Commands.REMINDER.execute("");
+
+        assertEquals("Here are the tasks due soon:\n"
+                + "1.[D][ ] earliest task (by: Aug 19 2025 18:30)\n"
+                + "2.[E][ ] earlier event (from: Aug 20 2025 09:00 to: Aug 20 2025 10:00)\n"
+                + "3.[D][ ] later task (by: Aug 22 2025 14:00)\n", output);
+    }
+
+    @Test
+    void reminder_includesOnlyTasksWithDeadlines() throws BaronException {
+        Commands.TODO.execute("task without a deadline");
+        Commands.DEADLINE.execute("task with a deadline /by 2025-08-20");
+
+        String output = Commands.REMINDER.execute("");
+
+        assertEquals("Here are the tasks due soon:\n"
+                + "1.[D][ ] task with a deadline (by: Aug 20 2025 00:00)\n", output);
+    }
+
+    @Test
+    void reminder_noTasksWithDeadlines_returnsEmptyMessage() throws BaronException {
+        Commands.TODO.execute("task without a deadline");
+
+        String output = Commands.REMINDER.execute("");
+
+        assertEquals("There are no tasks due soon.", output);
+    }
 }

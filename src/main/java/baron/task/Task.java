@@ -2,6 +2,8 @@
 
 package baron.task;
 
+import java.time.LocalDateTime;
+
 import baron.exception.BaronException;
 
 /**
@@ -91,6 +93,16 @@ public abstract class Task {
      */
     public String serialize() {
         return getTypeSymbol() + "|" + (isDone ? "1" : "0") + "|" + description;
+    }
+
+    /**
+     * Returns the deadline or end time of the task, if applicable.
+     * For tasks without a specific time constraint, this method returns null.
+     *
+     * @return the deadline or end time, or null if not applicable.
+     */
+    public LocalDateTime getDeadline() {
+        return null;
     }
 
     /**
