@@ -61,6 +61,7 @@ public class BaronState {
      * Adds a task to the current task list.
      *
      * @param t the task to add.
+     * @throws BaronException if the updated task list cannot be saved.
      */
     public static void addTask(Task t) throws BaronException {
         assert tasks != null : "BaronState must be initialized before adding tasks";

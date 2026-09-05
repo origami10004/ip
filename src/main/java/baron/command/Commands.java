@@ -129,6 +129,7 @@ public enum Commands {
      * Executes the action associated with this command.
      *
      * @param args the raw arguments supplied with the command.
+     * @return the response message produced by the command.
      * @throws BaronException if the command arguments are invalid.
      */
     public abstract String execute(String args) throws BaronException;

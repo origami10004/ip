@@ -25,6 +25,7 @@ public class TaskPersistence {
     /**
      * Saves the current list of tasks to the specified file.
      * Each task is serialized and written to the file, one per line.
+     *
      * @param tasks the list of tasks to save
      * @throws BaronException if an error occurs while saving the tasks
      */

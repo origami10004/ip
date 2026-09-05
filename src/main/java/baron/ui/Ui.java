@@ -56,6 +56,7 @@ public class Ui {
 
     /**
      * Displays the result of a command execution.
+     *
      * @param result The result message to display.
      */
     public static void displayResult(String result) {
@@ -69,6 +70,7 @@ public class Ui {
 
     /**
      * Displays an error message.
+     *
      * @param e The exception to display.
      */
     public static void displayError(Exception e) {

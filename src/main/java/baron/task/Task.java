@@ -85,7 +85,7 @@ public abstract class Task {
     }
 
     /**
-     * returns the string representation of the task for saving to a file.
+     * Returns the string representation of the task for saving to a file.
      *
      * @return the formatted task status and description for file storage.
      */
@@ -123,7 +123,11 @@ public abstract class Task {
         return task;
     }
 
-    /** Creates the concrete task represented by the already validated fields. */
+    /**
+     * Creates the concrete task represented by the already validated fields.
+     *
+     * @throws BaronException if the serialized task has an invalid subtype format.
+     */
     private static Task createTask(String type, String[] parts) throws BaronException {
         switch (type) {
             case "T":

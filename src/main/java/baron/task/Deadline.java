@@ -19,6 +19,7 @@ public class Deadline extends Task {
      *
      * @param name the task description.
      * @param dueDate the deadline information.
+     * @throws BaronException if the deadline has an invalid date format.
      */
     public Deadline(String name, String dueDate) throws BaronException {
         super(name);
@@ -46,7 +47,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * returns the string representation of the task for saving to a file.
+     * Returns the string representation of the task for saving to a file.
      *
      * @return the formatted task status and description for file storage.
      */

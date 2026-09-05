@@ -23,6 +23,7 @@ public class Event extends Task {
      * @param description the event description.
      * @param from the event start time.
      * @param to the event end time.
+     * @throws BaronException if either event time has an invalid date format.
      */
     public Event(String description, String from, String to) throws BaronException {
         super(description);
@@ -51,7 +52,7 @@ public class Event extends Task {
     }
 
     /**
-     * returns the string representation of the task for saving to a file.
+     * Returns the string representation of the task for saving to a file.
      *
      * @return the formatted task status and description for file storage.
      */
