@@ -212,4 +212,16 @@ class CommandsTest {
 
         assertEquals("There are no tasks due soon.", output);
     }
+
+    @Test
+    void reminder_excludesCompletedTasks() throws BaronException {
+        Commands.DEADLINE.execute("completed task /by 2025-08-19");
+        Commands.DEADLINE.execute("pending task /by 2025-08-20");
+        Commands.MARK.execute("1");
+
+        String output = Commands.REMINDER.execute("");
+
+        assertEquals("Here are the tasks due soon:\n"
+                + "1.[D][ ] pending task (by: Aug 20 2025 00:00)\n", output);
+    }
 }

@@ -133,6 +133,7 @@ public enum Commands {
 
             List<Task> tasks = BaronState.getTasks().stream()
                     .filter(task -> task.getDeadline() != null)
+                    .filter(task -> !task.isDone())
                     .sorted(Comparator.comparing(Task::getDeadline))
                     .toList();
 
