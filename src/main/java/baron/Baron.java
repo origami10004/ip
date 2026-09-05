@@ -19,6 +19,7 @@ public class Baron extends Application {
     /**
      * Starts the Baron application and processes user commands until termination.
      *
+     * @throws Exception if the main window cannot be loaded.
      */
     @Override
     public void start(Stage stage) throws Exception {
@@ -40,6 +41,7 @@ public class Baron extends Application {
 
     /**
      * The main method that serves as the entry point for the Baron application.
+     *
      * @param args
      */
     public static void main(String[] args) {
