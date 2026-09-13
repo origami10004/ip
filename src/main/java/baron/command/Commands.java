@@ -179,7 +179,7 @@ public enum Commands {
     /** Converts a one-based task number into the zero-based index used by the state. */
     private static int parseTaskIndex(String args, String commandName) throws BaronException {
         try {
-                        return Integer.parseInt(args) - 1;
+            return Integer.parseInt(args) - 1;
         } catch (NumberFormatException e) {
             throw new FormatException(commandName, commandName + " <task number>");
         }
