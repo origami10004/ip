@@ -1,7 +1,7 @@
 package baron.ui;
 
-import baron.data.BaronState;
 import baron.command.Commands;
+import baron.data.BaronState;
 import baron.exception.BaronException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

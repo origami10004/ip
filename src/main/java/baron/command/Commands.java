@@ -59,7 +59,7 @@ public enum Commands {
     TODO {
         @Override
         public String execute(String args) throws BaronException {
-            if (args.isEmpty()) {
+            if (args == null || args.isBlank() || !isValidDescription(args)) {
                 throw new FormatException("todo", "todo <description>");
             }
             Task t = new Todo(args);
@@ -70,8 +70,8 @@ public enum Commands {
     DEADLINE {
         @Override
         public String execute(String args) throws BaronException {
-            String[] parts = args.split(" /by ");
-            if (parts.length < 2) {
+            String[] parts = args == null ? new String[0] : args.split(" /by ", -1);
+            if (parts.length != 2 || !isValidDescription(parts[0]) || parts[1].isBlank()) {
                 throw new FormatException("deadline", "deadline <description> /by <date>");
             }
             Task t = new Deadline(parts[0], parts[1]);
@@ -82,8 +82,8 @@ public enum Commands {
     EVENT {
         @Override
         public String execute(String args) throws BaronException {
-            String[] parts = args.split(" /from | /to ");
-            if (parts.length < 3) {
+            String[] parts = args == null ? new String[0] : args.split(" /from | /to ", -1);
+            if (parts.length != 3 || !isValidDescription(parts[0]) || parts[1].isBlank() || parts[2].isBlank()) {
                 throw new FormatException("event", "event <description> /from <start time> /to <end time>");
             }
             Task t = new Event(parts[0], parts[1], parts[2]);
@@ -104,7 +104,7 @@ public enum Commands {
     FIND {
         @Override
         public String execute(String args) throws BaronException {
-            if (args.isEmpty()) {
+            if (args == null || args.isBlank()) {
                 throw new FormatException("find", "find <keyword>");
             }
             boolean hasTask = false;
@@ -183,6 +183,11 @@ public enum Commands {
         } catch (NumberFormatException e) {
             throw new FormatException(commandName, commandName + " <task number>");
         }
+    }
+
+    private static boolean isValidDescription(String description) {
+        return description != null && !description.isBlank() && !description.contains("|")
+                && !description.contains("\n") && !description.contains("\r");
     }
 
     /**

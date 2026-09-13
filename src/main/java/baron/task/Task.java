@@ -23,6 +23,10 @@ public abstract class Task {
      * @param description the description of the task.
      */
     public Task(String description) {
+        if (description == null || description.isBlank() || description.contains("|")
+                || description.contains("\n") || description.contains("\r")) {
+            throw new IllegalArgumentException("Task description is invalid.");
+        }
         this.description = description;
         this.isDone = false;
     }
@@ -112,8 +116,11 @@ public abstract class Task {
      * @throws BaronException if the serialized task format is invalid
      */
     public static Task deserialize(String serializedTask) throws BaronException {
-        String[] parts = serializedTask.split("\\|");
-        if (parts.length < 3) {
+        if (serializedTask == null) {
+            throw new BaronException("Invalid task format.");
+        }
+        String[] parts = serializedTask.split("\\|", -1);
+        if (parts.length < 3 || parts[2].isBlank() || parts[2].contains("\n") || parts[2].contains("\r")) {
             throw new BaronException("Invalid task format.");
         }
 
