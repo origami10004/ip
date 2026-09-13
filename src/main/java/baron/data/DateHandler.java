@@ -5,6 +5,7 @@ package baron.data;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoField;
 
 import baron.exception.BaronException;
@@ -18,17 +19,18 @@ public class DateHandler {
      */
     private static final DateTimeFormatter OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
+    // Ai suggested use of withResolverStyle.STRICT to ensure strict parsing of date and time formats
     /**
      * The input format for parsing dates and times from user input.
      */
     private static final DateTimeFormatter INPUT = new DateTimeFormatterBuilder()
             .optionalStart()
-                .appendPattern("[yyyy-MM-dd][dd-MM-yyyy][yyyy/MM/dd][dd/MM/yyyy][MMM dd yyyy][MM dd yyyy]")
+                .appendPattern("[uuuu-MM-dd][dd-MM-uuuu][uuuu/MM/dd][dd/MM/uuuu][MMM dd uuuu][MM dd uuuu]")
                 .appendPattern("[ HH:mm:ss][ HH:mm]")
             .optionalEnd()
             .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-            .toFormatter();
+            .toFormatter().withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Parses a date string into a LocalDateTime object using the defined input format.
