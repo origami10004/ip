@@ -107,20 +107,20 @@ public enum Commands {
             if (args.isEmpty()) {
                 throw new FormatException("find", "find <keyword>");
             }
-            boolean found = false;
+            boolean hasTask = false;
             int i = 1;
             StringBuilder sb = new StringBuilder();
             for (Task t : BaronState.getTasks()) {
                 if (t.getName().contains(args)) {
-                    if (!found) {
+                    if (!hasTask) {
                         sb.append("Here are the matching tasks in your list:");
-                        found = true;
+                        hasTask = true;
                     }
                     sb.append("\n").append(i).append(".").append(t);
                     i++;
                 }
             }
-            if (!found) {
+            if (!hasTask) {
                 sb.append("There are no matching tasks in your list:");
             }
             return sb.toString();

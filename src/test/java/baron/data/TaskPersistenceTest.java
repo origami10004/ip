@@ -22,20 +22,20 @@ import baron.task.Todo;
 class TaskPersistenceTest {
     private static final Path SAVE_FILE = Path.of("./data/tasks.txt");
 
-    private boolean saveFileExisted;
+    private boolean hasSaveFile;
     private byte[] originalSaveFile;
 
     @BeforeEach
     void backupSaveFile() throws IOException {
-        saveFileExisted = Files.exists(SAVE_FILE);
-        if (saveFileExisted) {
+        hasSaveFile = Files.exists(SAVE_FILE);
+        if (hasSaveFile) {
             originalSaveFile = Files.readAllBytes(SAVE_FILE);
         }
     }
 
     @AfterEach
     void restoreSaveFile() throws IOException {
-        if (saveFileExisted) {
+        if (hasSaveFile) {
             Files.write(SAVE_FILE, originalSaveFile);
         } else {
             Files.deleteIfExists(SAVE_FILE);
