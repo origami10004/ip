@@ -29,6 +29,9 @@ public class Event extends Task {
         super(description);
         this.from = DateHandler.parse(from);
         this.to = DateHandler.parse(to);
+        if (!this.from.isBefore(this.to)) {
+            throw new BaronException("Event start must be earlier than its end.");
+        }
     }
 
     /**
