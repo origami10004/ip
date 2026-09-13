@@ -34,7 +34,10 @@ public class MainWindow {
     /** Displays the initial greeting in the conversation. */
     public void showWelcome() {
         assert dialogContainer != null : "MainWindow FXML must inject the dialog container";
-        dialogContainer.getChildren().add(DialogBox.getDialog("Hello! I'm Baron.\nWhat can I do for you?", false));
+        dialogContainer.getChildren().add(DialogBox.getDialog(
+                "Greetings, traveler. I am Baron, forged beneath the sands of Barathos.\n"
+                + "In my world, strength is measured by what we can protect.\n"
+                + "Give me a task, and I shall guard it in your records.", false));
     }
 
     /** Executes the command entered by the user and appends both messages. */
