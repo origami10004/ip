@@ -12,6 +12,6 @@ public class IndexException extends BaronException {
      * @param collectionName the name of the collection the user accessed.
      */
     public IndexException(String collectionName) {
-        super("Invalid " + collectionName + " index.");
+        super("That " + collectionName + " number points beyond the ledger. Choose an existing entry.");
     }
 }

@@ -25,7 +25,7 @@ public abstract class Task {
     public Task(String description) {
         if (description == null || description.isBlank() || description.contains("|")
                 || description.contains("\n") || description.contains("\r")) {
-            throw new IllegalArgumentException("Task description is invalid.");
+            throw new IllegalArgumentException("A task needs a worthy description before it can enter the ledger.");
         }
         this.description = description;
         this.isDone = false;
@@ -117,11 +117,11 @@ public abstract class Task {
      */
     public static Task deserialize(String serializedTask) throws BaronException {
         if (serializedTask == null) {
-            throw new BaronException("Invalid task format.");
+            throw new BaronException("A ledger entry is corrupted: its task format is not recognised.");
         }
         String[] parts = serializedTask.split("\\|", -1);
         if (parts.length < 3 || parts[2].isBlank() || parts[2].contains("\n") || parts[2].contains("\r")) {
-            throw new BaronException("Invalid task format.");
+            throw new BaronException("A ledger entry is corrupted: its task format is not recognised.");
         }
 
         String type = parts[0];
@@ -129,7 +129,7 @@ public abstract class Task {
         if (parts[1].equals("1")) {
             isDone = true;
         } else if (!parts[1].equals("0")) {
-            throw new BaronException("Invalid task completion status.");
+            throw new BaronException("A ledger entry has an unknown completion status.");
         }
         Task task = createTask(type, parts);
 
@@ -153,16 +153,16 @@ public abstract class Task {
                 return new Todo(parts[2]);
             case "D":
                 if (parts.length < 4) {
-                    throw new BaronException("Invalid deadline format.");
+                    throw new BaronException("A deadline entry is missing its date.");
                 }
                 return new Deadline(parts[2], parts[3]);
             case "E":
                 if (parts.length < 5) {
-                    throw new BaronException("Invalid event format.");
+                    throw new BaronException("An event entry is missing part of its time range.");
                 }
                 return new Event(parts[2], parts[3], parts[4]);
             default:
-                throw new BaronException("Unknown task type: " + type);
+                throw new BaronException("The ledger contains an unknown task type: " + type + ".");
         }
     }
 }

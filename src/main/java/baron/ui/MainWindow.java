@@ -35,9 +35,9 @@ public class MainWindow {
     public void showWelcome() {
         assert dialogContainer != null : "MainWindow FXML must inject the dialog container";
         dialogContainer.getChildren().add(DialogBox.getDialog(
-                "Greetings, traveler. I am Baron, forged beneath the sands of Barathos.\n"
-                + "In my world, strength is measured by what we can protect.\n"
-                + "Give me a task, and I shall guard it in your records.", false));
+                "Welcome, traveler. I am Baron, keeper of this ledger from the sands of Barathos.\n"
+                + "Mine is a land of proud warriors, ancient oaths, and strength proven by what we protect.\n"
+                + "Name your next challenge, and I shall guard it until victory—or remind you when it draws near.", false));
     }
 
     /** Executes the command entered by the user and appends both messages. */
