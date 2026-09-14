@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass = 'baron.Baron'
+    mainClass = 'baron.Launcher'
 }
 
 jar {
