@@ -34,7 +34,8 @@ public class Ui {
     private static void greet() {
         printLine();
         printBanner();
-        System.out.println("Hello! I'm " + NAME + ".\nWhat can I do for you?");
+        System.out.println("Greetings, traveler. I am " + NAME + ", keeper of a Barathos ledger.\n"
+                + "Speak your next challenge, and I shall see it recorded.");
         printLine();
     }
 
@@ -43,7 +44,7 @@ public class Ui {
      */
     private static void bye() {
         printLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Until our paths cross again, traveler. May your strength outlast the sands.");
         printLine();
     }
 

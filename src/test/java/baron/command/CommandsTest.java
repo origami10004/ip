@@ -161,7 +161,7 @@ class CommandsTest {
 
         String output = Commands.FIND.execute("read");
 
-        assertEquals("Here are the matching tasks in your list:\n"
+        assertEquals("The ledger reveals these matching tasks:\n"
             + "1.[T][ ] read book\n"
             + "2.[T][ ] read notes", output);
     }
@@ -171,7 +171,7 @@ class CommandsTest {
         BaronState.addTask(new Todo("read book"));
 
         String output = Commands.FIND.execute("exercise");
-        assertEquals("There are no matching tasks in your list:", output);
+        assertEquals("No matching task answers the call. Try another name or keyword.", output);
     }
 
     @Test
@@ -187,7 +187,7 @@ class CommandsTest {
 
         String output = Commands.REMINDER.execute("");
 
-        assertEquals("Here are the tasks due soon:\n"
+        assertEquals("These tasks demand your attention soon:\n"
                 + "1.[D][ ] earliest task (by: Aug 19 2025 18:30)\n"
                 + "2.[E][ ] earlier event (from: Aug 20 2025 09:00 to: Aug 20 2025 10:00)\n"
                 + "3.[D][ ] later task (by: Aug 22 2025 14:00)\n", output);
@@ -200,7 +200,7 @@ class CommandsTest {
 
         String output = Commands.REMINDER.execute("");
 
-        assertEquals("Here are the tasks due soon:\n"
+        assertEquals("These tasks demand your attention soon:\n"
                 + "1.[D][ ] task with a deadline (by: Aug 20 2025 00:00)\n", output);
     }
 
@@ -210,7 +210,7 @@ class CommandsTest {
 
         String output = Commands.REMINDER.execute("");
 
-        assertEquals("There are no tasks due soon.", output);
+        assertEquals("The horizon is clear for now. No tasks are due soon.", output);
     }
 
     @Test
@@ -221,7 +221,7 @@ class CommandsTest {
 
         String output = Commands.REMINDER.execute("");
 
-        assertEquals("Here are the tasks due soon:\n"
+        assertEquals("These tasks demand your attention soon:\n"
                 + "1.[D][ ] pending task (by: Aug 20 2025 00:00)\n", output);
     }
 }

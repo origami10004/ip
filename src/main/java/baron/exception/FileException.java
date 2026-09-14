@@ -12,6 +12,7 @@ public class FileException extends BaronException {
      * @param filePath the path of the file that could not be accessed.
      */
     public FileException(String filePath) {
-        super("Failed to access file: " + filePath);
+        super("The Barathos ledger could not be opened: " + filePath
+                + ". Your records remain untouched; check the file and try again.");
     }
 }

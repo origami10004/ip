@@ -13,6 +13,6 @@ public class FormatException extends BaronException {
      * @param expectedFormat the correct command syntax.
      */
     public FormatException(String commandName, String expectedFormat) {
-        super("Invalid format for " + commandName + " command. Please use: " + expectedFormat);
+        super("The command was malformed, traveler. Use this form: " + expectedFormat);
     }
 }

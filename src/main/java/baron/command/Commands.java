@@ -31,7 +31,7 @@ public enum Commands {
         @Override
         public String execute(String args) {
             StringBuilder sb = new StringBuilder();
-            sb.append("Here are the tasks in your list:\n");
+            sb.append("The Barathos ledger records these tasks:\n");
             int i = 1;
             for (Task t : BaronState.getTasks()) {
                 sb.append(i).append(".").append(t).append("\n");
@@ -45,7 +45,8 @@ public enum Commands {
         public String execute(String args) throws BaronException {
             int index = parseTaskIndex(args, "mark");
             BaronState.markTaskAsDone(index);
-            return formatTaskAction("Nice! I've marked this task as done:", BaronState.getTasks().get(index));
+            return formatTaskAction("A worthy victory. This task is marked complete:",
+                    BaronState.getTasks().get(index));
         }
     },
     UNMARK {
@@ -53,7 +54,8 @@ public enum Commands {
         public String execute(String args) throws BaronException {
             int index = parseTaskIndex(args, "unmark");
             BaronState.unmarkTask(index);
-            return formatTaskAction("OK, I've marked this task as not done yet:", BaronState.getTasks().get(index));
+            return formatTaskAction("The battle is not over yet. This task is marked incomplete again:",
+                    BaronState.getTasks().get(index));
         }
     },
     TODO {
@@ -96,8 +98,8 @@ public enum Commands {
         public String execute(String args) throws BaronException {
             int index = parseTaskIndex(args, "delete");
             Task t = BaronState.delete(index);
-            String response = formatTaskAction("Noted. I've removed this task:", t);
-            response += "\nNow you have " + BaronState.getTasks().size() + " tasks in the list.";
+            String response = formatTaskAction("The record has been struck from the ledger:", t);
+            response += "\nThe ledger now holds " + BaronState.getTasks().size() + " tasks.";
             return response;
         }
     },
@@ -113,7 +115,7 @@ public enum Commands {
             for (Task t : BaronState.getTasks()) {
                 if (t.getName().contains(args)) {
                     if (!hasTask) {
-                        sb.append("Here are the matching tasks in your list:");
+                        sb.append("The ledger reveals these matching tasks:");
                         hasTask = true;
                     }
                     sb.append("\n").append(i).append(".").append(t);
@@ -121,7 +123,7 @@ public enum Commands {
                 }
             }
             if (!hasTask) {
-                sb.append("There are no matching tasks in your list:");
+                sb.append("No matching task answers the call. Try another name or keyword.");
             }
             return sb.toString();
         }
@@ -140,13 +142,13 @@ public enum Commands {
             int i = 1;
             for (Task t : tasks) {
                 if (i == 1) {
-                    sb.append("Here are the tasks due soon:\n");
+                    sb.append("These tasks demand your attention soon:\n");
                 }
                 sb.append(i).append(".").append(t).append("\n");
                 i++;
             }
             if (i == 1) {
-                sb.append("There are no tasks due soon.");
+                sb.append("The horizon is clear for now. No tasks are due soon.");
             }
             return sb.toString();
         }
@@ -165,9 +167,9 @@ public enum Commands {
     /** Formats the common confirmation shown after adding a task. */
     private static String formatAddedTask(Task task) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Got it. I've added this task:");
+        sb.append("It is entered in the Barathos ledger:");
         sb.append("\n  ").append(task);
-        sb.append("\nNow you have ").append(BaronState.getTasks().size()).append(" tasks in the list.");
+        sb.append("\nThe ledger now guards ").append(BaronState.getTasks().size()).append(" tasks.");
         return sb.toString();
     }
 
@@ -202,7 +204,7 @@ public enum Commands {
         try {
             return Commands.valueOf(input.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new BaronException("Invalid command. Please try again.");
+            throw new BaronException("That command is unknown in Barathos. Choose a command supported by the ledger.");
         }
     }
 }
