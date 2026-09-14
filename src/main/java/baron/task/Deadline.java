@@ -4,6 +4,9 @@ package baron.task;
 
 import java.time.LocalDateTime;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import baron.data.DateHandler;
 import baron.exception.BaronException;
 
@@ -53,7 +56,9 @@ public class Deadline extends Task {
      */
     @Override
     public String serialize() {
-        return super.serialize() + "|" + DateHandler.format(dueDate);
+        JsonObject taskData = new Gson().fromJson(super.serialize(), JsonObject.class);
+        taskData.addProperty("dueDate", DateHandler.format(dueDate));
+        return new Gson().toJson(taskData);
     }
 
     /**

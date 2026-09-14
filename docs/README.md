@@ -1,6 +1,6 @@
 # Baron User Guide
 
-Baron is a desktop task manager for to-dos, deadlines, and events. Tasks are saved automatically in `data/tasks.txt` and restored when Baron starts.
+Baron is a desktop task manager for to-dos, deadlines, and events. Tasks are saved automatically in `data/tasks.json` and restored when Baron starts.
 
 ## Getting started
 
@@ -31,7 +31,7 @@ deadline submit report /by 2025-08-20 14:30
 event team meeting /from 2025-08-21 10:00 /to 2025-08-21 11:00
 ```
 
-Descriptions must not be empty or contain `|` or line breaks.
+Descriptions must not be empty or contain line breaks.
 
 ## Date and time formats
 
@@ -43,4 +43,4 @@ Dates are validated strictly, so nonexistent dates such as February 30 are rejec
 
 Invalid commands, missing parameters, invalid task numbers, malformed dates, and invalid event ranges show an error without changing the task list. File read/write failures are also reported.
 
-Tasks are stored in `data/tasks.txt`, relative to the directory from which Baron is launched, and are saved after every add or update.
+Tasks are stored as JSON in `data/tasks.json`, relative to the directory from which Baron is launched, and are saved after every add or update.

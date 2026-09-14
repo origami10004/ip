@@ -188,7 +188,7 @@ public enum Commands {
     }
 
     private static boolean isValidDescription(String description) {
-        return description != null && !description.isBlank() && !description.contains("|")
+        return description != null && !description.isBlank()
                 && !description.contains("\n") && !description.contains("\r");
     }
 

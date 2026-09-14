@@ -20,7 +20,7 @@ import baron.task.Task;
 import baron.task.Todo;
 
 class TaskPersistenceTest {
-    private static final Path SAVE_FILE = Path.of("./data/tasks.txt");
+    private static final Path SAVE_FILE = Path.of("./data/tasks.json");
 
     private boolean hasSaveFile;
     private byte[] originalSaveFile;
@@ -63,6 +63,15 @@ class TaskPersistenceTest {
     }
 
     @Test
+    void saveThenLoad_descriptionContainingPipe_preservesDescription() throws BaronException {
+        ArrayList<Task> tasks = new ArrayList<>(List.of(new Todo("Plan | review | submit")));
+
+        TaskPersistence.save(tasks);
+
+        assertEquals(tasks.toString(), TaskPersistence.load().toString());
+    }
+
+    @Test
     void load_whenSaveFileDoesNotExist_returnsEmptyList() throws IOException, BaronException {
         Files.deleteIfExists(SAVE_FILE);
 
@@ -82,7 +91,7 @@ class TaskPersistenceTest {
     @Test
     void load_malformedTask_throwsBaronException() throws IOException {
         Files.createDirectories(SAVE_FILE.getParent());
-        Files.writeString(SAVE_FILE, "invalid task data");
+        Files.writeString(SAVE_FILE, "not valid json");
 
         assertThrows(BaronException.class, TaskPersistence::load);
     }

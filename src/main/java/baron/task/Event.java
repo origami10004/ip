@@ -4,6 +4,9 @@ package baron.task;
 
 import java.time.LocalDateTime;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import baron.data.DateHandler;
 import baron.exception.BaronException;
 
@@ -61,7 +64,10 @@ public class Event extends Task {
      */
     @Override
     public String serialize() {
-        return super.serialize() + "|" + DateHandler.format(from) + "|" + DateHandler.format(to);
+        JsonObject taskData = new Gson().fromJson(super.serialize(), JsonObject.class);
+        taskData.addProperty("from", DateHandler.format(from));
+        taskData.addProperty("to", DateHandler.format(to));
+        return new Gson().toJson(taskData);
     }
 
     /**

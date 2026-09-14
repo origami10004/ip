@@ -26,7 +26,7 @@ import baron.task.Task;
 import baron.task.Todo;
 
 class CommandsTest {
-    private static final Path SAVE_FILE = Path.of("./data/tasks.txt");
+    private static final Path SAVE_FILE = Path.of("./data/tasks.json");
 
     private boolean hasSaveFile;
     private byte[] originalSaveFile;
@@ -58,6 +58,13 @@ class CommandsTest {
         Task task = BaronState.getTasks().get(0);
         assertInstanceOf(Todo.class, task);
         assertEquals("read book", task.getName());
+    }
+
+    @Test
+    void todo_descriptionContainingPipe_addsTodoTask() throws BaronException {
+        Commands.TODO.execute("Plan | review");
+
+        assertEquals("Plan | review", BaronState.getTasks().get(0).getName());
     }
 
     @Test
