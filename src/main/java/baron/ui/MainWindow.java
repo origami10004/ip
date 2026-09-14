@@ -37,7 +37,8 @@ public class MainWindow {
         dialogContainer.getChildren().add(DialogBox.getDialog(
                 "Welcome, traveler. I am Baron, keeper of this ledger from the sands of Barathos.\n"
                 + "Mine is a land of proud warriors, ancient oaths, and strength proven by what we protect.\n"
-                + "Name your next challenge, and I shall guard it until victory—or remind you when it draws near.", false));
+                + "Name your next challenge, and I shall guard it until victory—or remind you when it draws near.",
+                false));
     }
 
     /** Executes the command entered by the user and appends both messages. */
